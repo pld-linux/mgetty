@@ -5,7 +5,16 @@
  #endif
  
 -HELPDIR = ${USRLIBDIR}/X11
-+HELPDIR = ${USRLIBDIR}/mgetty+sendfax
++HELPDIR = ${SYSTEMUSRLIBDIR}/mgetty+sendfax
  DEFINES = -DHELPFILE=\"$(HELPDIR)/viewfax.tif\"
  
  SRCS = viewfax.c faxinput.c faxinit.c faxexpand.c
+@@ -6,6 +6,8 @@
+ MANDIR = /usr/local/man/man1	/* where you want the man file installed */
+ HELPDIR = /usr/local/lib	/* where you want the help file installed */
+ #endif
++BINDIR = /usr/bin
++MANPATH = /usr/share/man
+ 
+ HELPDIR = ${SYSTEMUSRLIBDIR}/mgetty+sendfax
+ DEFINES = -DHELPFILE=\"$(HELPDIR)/viewfax.tif\"
