@@ -1,0 +1,174 @@
+diff -urP tt/mgetty-current-plus-ring-patch/Makefile TT2/Makefile
+--- tt/mgetty-current-plus-ring-patch/Makefile	Mon Mar  1 20:00:00 1999
++++ TT2/Makefile	Sat Jan 30 19:53:05 1999
+@@ -107,7 +107,7 @@
+ # prompt first. Don't forget to activate the /AutoPPP/ line in login.config!
+ #
+ #CFLAGS=-Wall -O2 -pipe -DSECUREWARE -DUSE_POLL
+-CFLAGS=$(RPM_OPT_FLAGS) -Wall -pipe -DAUTO_PPP
++CFLAGS=$(RPM_OPT_FLAGS) -Wall -pipe -DAUTO_PPP -DFIFO -DMSC98_WILDMAT_ANALYZE -DMSC98_EXTENDED_CND_SCRIPT -DMSC98_PASS_CID_CND_TO_VGETTY
+ #CFLAGS=-O -DSVR4
+ #CFLAGS=-O -DSVR4 -DSVR42
+ #CFLAGS=-O -DUSE_POLL
+@@ -285,8 +285,8 @@
+ # Nothing to change below this line ---------------------------------!
+ #
+ MR=1.1
+-SR=22
+-DIFFR=1.1.21
++SR=17
++DIFFR=1.1.16
+ #
+ #
+ OBJS=mgetty.o logfile.o do_chat.o locks.o utmp.o logname.o login.o \
+@@ -450,9 +450,6 @@
+ 
+ diff:	mgetty$(DIFFR)-$(MR).$(SR).diff.gz
+ 
+-sign:	tar
+-	pgp -sab mgetty$(MR).$(SR).tar.gz
+-
+ mgetty$(DIFFR)-$(MR).$(SR).diff.gz: \
+ 	mgetty$(DIFFR).tar.gz mgetty$(MR).$(SR).tar.gz
+ 	-rm -rf /tmp/mgd
+@@ -477,7 +474,7 @@
+ # this is for automatic uploading to the beta site. 
+ # DO NOT USE IT if you're not ME! Please!
+ #
+-beta:	tar diff sign
++beta:	mgetty$(MR).$(SR).tar.gz diff
+ 	test `hostname` = greenie.muc.de || exit 1
+ # local
+ 	cp mgetty$(MR).$(SR).tar.gz /pub/mgetty-archive/
+@@ -650,13 +647,6 @@
+ 				MAN8DIR=$(MAN8DIR) \
+ 				INFODIR=$(INFODIR)
+ 
+-#
+-# WWW frontend stuff
+-#
+-install.www:
+-	cd frontends/www ; $(MAKE) install.www INSTALL="$(INSTALL)" \
+-				BINDIR=$(BINDIR) \
+-				LIBDIR=$(LIBDIR) CONFDIR=$(CONFDIR)
+ #
+ # voice extensions, consult the `voice' chapter in the documentation
+ #
+diff -urP tt/mgetty-current-plus-ring-patch/mgetty.c TT2/mgetty.c
+--- tt/mgetty-current-plus-ring-patch/mgetty.c	Mon Mar  1 20:00:04 1999
++++ TT2/mgetty.c	Sat Jan 30 19:53:17 1999
+@@ -803,6 +803,84 @@
+ 		
+ 	    /* Check Caller ID.  Static table first, then cnd-program.  */
+ 
++#ifdef MSC98_EXTENDED_CND_SCRIPT
++            if (!cndlookup()) {
++		lprintf(L_AUDIT,
++                        "config denied caller dev=%s, pid=%d, caller='%s'",
++			Device,
++                        getpid(),
++                        CallerId);
++		clean_line(STDIN, 80); /* wait for ringing to stop */
++
++		mgetty_state = St_go_to_jail;
++		break;
++            }
++            else if (c_isset(cnd_program)) {
++#define BOOL int
++               BOOL break_it = FALSE;
++
++               switch (cnd_call(c_string(cnd_program),
++                                Device,
++                                dist_ring)) {
++                  case CND_SCRIPT_ACCEPT_CALL:
++                     break;
++                  case CND_SCRIPT_LET_IT_RING:
++		     lprintf(L_AUDIT,
++                             "CND script denied caller dev=%s, pid=%d, caller='%s'",
++			     Device,
++                             getpid(),
++                             CallerId);
++		     clean_line(STDIN, 80); /* wait for ringing to stop */
++
++		     mgetty_state = St_go_to_jail;
++                     break_it = TRUE;
++                     break;
++                  case CND_SCRIPT_REJECT_CALL:
++                  /* BUGS
++                   *    - Reject call, which should in all the cases tell
++                   *      BUSY to the caller, is not implemented yet.
++                   *      We maybe do not need it really.
++                   */
++                  case CND_SCRIPT_IGNORE_CALL:
++		     lprintf(L_AUDIT,
++                             "CND script ignore/reject caller dev=%s, pid=%d, caller='%s'",
++			     Device,
++                             getpid(),
++                             CallerId);
++                     /* BUGS
++                      *    - This is probably modem-specific and should be
++                      *      in the modem specific voice library.
++                      * NOTES
++                      *    - For the ZyXEL 2864i, firmware 2.11, this
++                      *      return BUSY to the caller if no other device
++                      *      is ringing (e.g. unexistant or BUSY). Else
++                      *      it continues to ring without the ZyXEL ringing.
++                      */
++          	     mdm_command("ATH", STDIN);
++		     clean_line(STDIN, 80); /* wait for ringing to stop,
++                                             * theoretically no use here
++                                             */
++
++		     mgetty_state = St_go_to_jail;
++                     break_it = TRUE;
++                     break;
++                  case CND_SCRIPT_MORE_RINGS_NEEDED:
++                     break_it = TRUE;
++                     break;
++                  default:
++		     lprintf(L_FATAL,
++			     "unknown result from CND script dev=%s, pid=%d, caller='%s'",
++			     Device,
++			     getpid(),
++			     CallerId);
++                     break;                     
++               }
++
++               if (break_it) {
++                  break;
++               }
++	    }
++#else /* MSC98_EXTENDED_CND_SCRIPT */
+ 	    if ( !cndlookup() ||
+ 	         ( c_isset(cnd_program) &&
+ 		   cnd_call( c_string(cnd_program), Device, dist_ring ) == 1))
+@@ -814,6 +892,7 @@
+ 		mgetty_state = St_go_to_jail;
+ 		break;
+ 	    }
++#endif /* MSC98_EXTENDED_CND_SCRIPT */
+ 
+ 	    /* from here, there's no way back. Either the call will succeed
+ 	       and mgetty will exec() something else, or it will fail and
+diff -urP tt/mgetty-current-plus-ring-patch/mgetty.h TT2/mgetty.h
+--- tt/mgetty-current-plus-ring-patch/mgetty.h	Mon Mar  1 20:00:04 1999
++++ TT2/mgetty.h	Sat Jan 30 19:53:27 1999
+@@ -11,6 +11,18 @@
+ 
+ #include "ugly.h"
+ 
++/* BUGS
++ *    - Those definitions should be in the interface file for
++ *      the cnd.c module.
++ *    - The code from the script is really that code << 8, see
++ *      cnd_call() in cnd.c.
++ */
++#define CND_SCRIPT_ACCEPT_CALL 0
++#define CND_SCRIPT_IGNORE_CALL 1
++#define CND_SCRIPT_REJECT_CALL 2
++#define CND_SCRIPT_MORE_RINGS_NEEDED 3
++#define CND_SCRIPT_LET_IT_RING 4
++
+ /* some generic, useful defines */
+ 
+ #ifndef ERROR

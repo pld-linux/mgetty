@@ -45,15 +45,6 @@
  
  /* On SVR4, maybe on other systems too, you can cause the 'login' program
   * to prompt with the same string as mgetty did, instead of the standard
-@@ -221,7 +221,7 @@
-  *
-  * Depending on your system, "/var/run/mgetty.%d" might be a good place.
-  */
--#define MGETTY_PID_FILE	"/etc/mg-pid.%s"
-+#define MGETTY_PID_FILE	"/var/run/mgetty-pid.%s"
- 
- /* Path for the lock files. A %s will be replaced with the device name,
-  * e.g. tty2a -> /usr/spool/uucp/LCK..tty2a
 @@ -582,14 +582,14 @@
  #endif
  
