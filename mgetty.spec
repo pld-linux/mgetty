@@ -149,7 +149,7 @@ make prefix=$RPM_BUILD_ROOT/usr spool=$RPM_BUILD_ROOT/var/spool \
 	CONFDIR=$RPM_BUILD_ROOT/etc/mgetty+sendfax install
 
 install -s callback/callback $RPM_BUILD_ROOT/usr/sbin
-install -s callback/ct $RPM_BUILD_ROOT/usr/bin
+install -s callback/ct $RPM_BUILD_ROOT%{_bindir}
 
 mv -f $RPM_BUILD_ROOT/usr/sbin/mgetty $RPM_BUILD_ROOT/sbin
 
@@ -221,16 +221,16 @@ fi
 %attr(1777,root,root) %dir /var/spool/fax/outgoing
 %attr(777,root,root) %dir /var/spool/fax/outgoing/locks
 
-%attr(755,root,root) /usr/bin/kvg
-%attr(755,root,root) /usr/bin/newslock
-%attr(755,root,root) /usr/bin/g3cat
-%attr(755,root,root) /usr/bin/g32pbm
-%attr(755,root,root) /usr/bin/pbm2g3
-%attr(755,root,root) /usr/bin/faxspool
-%attr(700,root,root) /usr/bin/faxrunq
-%attr(755,root,root) /usr/bin/faxq
-%attr(755,root,root) /usr/bin/faxrm
-%attr(4711,root,root) /usr/bin/ct
+%attr(755,root,root) %{_bindir}/kvg
+%attr(755,root,root) %{_bindir}/newslock
+%attr(755,root,root) %{_bindir}/g3cat
+%attr(755,root,root) %{_bindir}/g32pbm
+%attr(755,root,root) %{_bindir}/pbm2g3
+%attr(755,root,root) %{_bindir}/faxspool
+%attr(700,root,root) %{_bindir}/faxrunq
+%attr(755,root,root) %{_bindir}/faxq
+%attr(755,root,root) %{_bindir}/faxrm
+%attr(4711,root,root) %{_bindir}/ct
 %attr(700,root,root) /usr/sbin/sendfax
 %attr(700,root,root) /usr/sbin/faxrunqd
 %attr(700,root,root) /usr/sbin/callback
@@ -261,29 +261,29 @@ fi
 %dir /var/spool/voice/messages
 
 %attr(700,root,root) /sbin/vgetty
-%attr(755,root,root) /usr/bin/vm
-%attr(755,root,root) /usr/bin/pvfamp
-%attr(755,root,root) /usr/bin/pvfcut
-%attr(755,root,root) /usr/bin/pvfecho
-%attr(755,root,root) /usr/bin/pvffile
-%attr(755,root,root) /usr/bin/pvffft
-%attr(755,root,root) /usr/bin/pvfmix
-%attr(755,root,root) /usr/bin/pvfreverse
-%attr(755,root,root) /usr/bin/pvfsine
-%attr(755,root,root) /usr/bin/pvfspeed
-%attr(755,root,root) /usr/bin/pvftormd
-%attr(755,root,root) /usr/bin/rmdtopvf
-%attr(755,root,root) /usr/bin/rmdfile
-%attr(755,root,root) /usr/bin/pvftovoc
-%attr(755,root,root) /usr/bin/voctopvf
-%attr(755,root,root) /usr/bin/pvftolin
-%attr(755,root,root) /usr/bin/lintopvf
-%attr(755,root,root) /usr/bin/pvftobasic
-%attr(755,root,root) /usr/bin/basictopvf
-%attr(755,root,root) /usr/bin/pvftoau
-%attr(755,root,root) /usr/bin/autopvf
-%attr(755,root,root) /usr/bin/pvftowav
-%attr(755,root,root) /usr/bin/wavtopvf
+%attr(755,root,root) %{_bindir}/vm
+%attr(755,root,root) %{_bindir}/pvfamp
+%attr(755,root,root) %{_bindir}/pvfcut
+%attr(755,root,root) %{_bindir}/pvfecho
+%attr(755,root,root) %{_bindir}/pvffile
+%attr(755,root,root) %{_bindir}/pvffft
+%attr(755,root,root) %{_bindir}/pvfmix
+%attr(755,root,root) %{_bindir}/pvfreverse
+%attr(755,root,root) %{_bindir}/pvfsine
+%attr(755,root,root) %{_bindir}/pvfspeed
+%attr(755,root,root) %{_bindir}/pvftormd
+%attr(755,root,root) %{_bindir}/rmdtopvf
+%attr(755,root,root) %{_bindir}/rmdfile
+%attr(755,root,root) %{_bindir}/pvftovoc
+%attr(755,root,root) %{_bindir}/voctopvf
+%attr(755,root,root) %{_bindir}/pvftolin
+%attr(755,root,root) %{_bindir}/lintopvf
+%attr(755,root,root) %{_bindir}/pvftobasic
+%attr(755,root,root) %{_bindir}/basictopvf
+%attr(755,root,root) %{_bindir}/pvftoau
+%attr(755,root,root) %{_bindir}/autopvf
+%attr(755,root,root) %{_bindir}/pvftowav
+%attr(755,root,root) %{_bindir}/wavtopvf
 
 %{_mandir}/man1/zplay.1.gz
 %{_mandir}/man1/pvf.1.gz
@@ -314,7 +314,7 @@ fi
 %files viewfax
 %defattr(644,root,root,755)
 %doc frontends/X11/viewfax-2.4/C* frontends/X11/viewfax-2.4/README.gz
-%attr(755,root,root) /usr/bin/viewfax
+%attr(755,root,root) %{_bindir}/viewfax
 %dir %{_libdir}/mgetty+sendfax
 %{_libdir}/mgetty+sendfax/viewfax.tif
 %{_mandir}/man1/viewfax.1x.gz
@@ -330,7 +330,7 @@ fi
 - removed mgetty-strip.patch,
 - changed install procedure to allow building from non-root account
   (mgetty-install.patch),
-- removed "strip $RPM_BUILD_ROOT/usr/bin/*" in %install (binary files 
+- removed "strip $RPM_BUILD_ROOT%{_bindir}/*" in %install (binary files 
   are already striped during installation and we don't want to strip 
   shell scripts, do we?),
 - removed "find samples -type f -exec chmod 644 {} \;" in %install
