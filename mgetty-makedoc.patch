@@ -1,0 +1,20 @@
+--- doc/Makefile~	Thu Nov 27 21:33:26 1997
++++ doc/Makefile	Fri May 21 13:23:37 1999
+@@ -43,7 +43,7 @@
+ 	-texi2html -verbose mgetty.texi
+ 
+ mgetty.info: mgetty.texi
+-	-makeinfo mgetty.texi
++	-makeinfo --force mgetty.texi
+ 
+ mgetty.ps: mgetty.dvi
+ 	-dvips -o mgetty.ps mgetty.dvi
+@@ -65,7 +65,7 @@
+ 	      *.man *.[1-9] mgetty.texi
+ 
+ install: $(MANSRC) mgetty.info
+-	-mkdir `dirname $(MAN1DIR)` $(MAN1DIR) $(MAN4DIR) $(MAN5DIR) $(MAN8DIR) 2>/dev/null
++	-mkdir -p `dirname $(MAN1DIR)` $(MAN1DIR) $(MAN4DIR) $(MAN5DIR) $(MAN8DIR) 2>/dev/null
+ 	for i in $(MAN1PAGES) ; do \
+ 		$(INSTALL) -m 644 $$i $(MAN1DIR) ; \
+ 	done

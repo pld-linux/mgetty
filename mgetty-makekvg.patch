@@ -1,6 +1,6 @@
---- mgetty-1.1.5/Makefile.msf	Mon Apr 21 12:42:20 1997
-+++ mgetty-1.1.5/Makefile	Mon Apr 21 12:48:14 1997
-@@ -601,6 +601,13 @@
+--- Makefile~	Fri May 21 12:37:18 1999
++++ Makefile	Fri May 21 12:41:36 1999
+@@ -631,6 +631,12 @@
  				BINDIR=$(BINDIR) SBINDIR=$(SBINDIR) \
  				LIBDIR=$(LIBDIR) CONFDIR=$(CONFDIR)
  #
@@ -9,7 +9,6 @@
 +	cd tools ; $(MAKE) install INSTALL="$(INSTALL)" \
 +				BINDIR=$(BINDIR) SBINDIR=$(SBINDIR) \
 +				LIBDIR=$(LIBDIR) CONFDIR=$(CONFDIR)
-+
 +#
  # compatibility
  #
