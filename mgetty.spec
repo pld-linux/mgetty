@@ -4,12 +4,13 @@ Summary(fr):	Remplacement de getty pour les modems données et fax
 Summary(pl):	Zamiennik getty dla modemów i faxmodemów.
 Summary(tr):	Veri ve faks modemleri için yeni ve akýllý bir getty
 Name:		mgetty
-Version:	1.1.21
-Release:	4
+Version:	1.1.22
+Release:	0
 Copyright:	distributable
 Group:		Applications/Communications
 Group(pl):	Aplikacje/Komunikacja
-Source0:	ftp://ftp.leo.org/pub/comp/os/unix/networking/mgetty/%{name}%{version}-Jul24.tar.gz
+URL:		http://www.leo.org/~doering/mgetty/index.html
+Source0:	ftp://ftp.leo.org/pub/comp/os/unix/networking/mgetty/%{name}%{version}-Aug17.tar.gz
 Patch0:		mgetty-config.patch
 Patch1:		mgetty-makekvg.patch
 Patch2:		mgetty-policy.patch
@@ -20,6 +21,7 @@ Patch6:		mgetty-manpages.patch
 Patch7:		mgetty-info.patch
 Patch8:		mgetty-makedoc.patch
 Patch9:		mgetty-faxprint.patch
+Patch10:	mgetty-Omni56K.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	tetex
 BuildRequires:	texinfo
@@ -186,6 +188,7 @@ cp policy.h-dist policy.h
 %patch7 -p1
 %patch8 -p0
 %patch9 -p1
+%patch10 -p1
 
 %build
 %{__make} LDFLAGS="-s"
@@ -243,7 +246,7 @@ install logrotate.sendfax $RPM_BUILD_ROOT/etc/logrotate.d/sendfax
 texi2html -monolithic doc/mgetty.texi
 
 gzip -9nf $RPM_BUILD_ROOT{%{_mandir}/man?/*,%{_infodir}/*} \
-	FAQ BUGS ChangeLog README.1st THANKS doc/*.txt \
+	BUGS ChangeLog README.1st THANKS doc/*.txt \
 	frontends/X11/viewfax-2.4/C* frontends/X11/viewfax-2.4/README \
 	voice/doc/* doc/modems.db
 find samples -type f -exec gzip -9nf {} \;
@@ -259,8 +262,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc {FAQ,BUGS,ChangeLog,README.1st,THANKS}.gz doc/modems.db.gz
-%doc samples doc/*.txt.gz mgetty.html
+%doc {BUGS,ChangeLog,README.1st,THANKS}.gz doc/modems.db.gz
+%doc samples doc/*.txt.gz mgetty.html faq/SGML/FAQ.sgml
 %attr(700,root,root) /sbin/mgetty
 %{_mandir}/man8/mgetty.8*
 %{_mandir}/man4/mgettydefs.4*
