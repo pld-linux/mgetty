@@ -374,7 +374,6 @@ rm -rf $RPM_BUILD_ROOT
 %files viewfax
 %defattr(644,root,root,755)
 %define _prefix %{_prefix}/X11R6
-%define         _mandir         %{_mandir}
 %defattr(644,root,root,755)
 %doc frontends/X11/viewfax-%{viewfax_version}/C* frontends/X11/viewfax-%{viewfax_version}/README.gz
 %attr(755,root,root) %{_bindir}/viewfax
