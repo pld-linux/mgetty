@@ -22,7 +22,7 @@ BuildPrereq:	texinfo
 BuildPrereq:	groff
 Prereq:		/sbin/install-info
 Requires: 	libgr-progs
-Buildroot: 	/tmp/%{name}-%{version}-root
+BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
 The mgetty package contains a "smart" getty which allows logins over a
