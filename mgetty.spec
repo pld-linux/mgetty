@@ -17,9 +17,9 @@ Patch6: 	mgetty-xref.patch
 Patch7: 	mgetty-install.patch
 Patch8:		mgetty-manpages.patch
 Patch9:		mgetty-info.patch
-#BuildPrereq:	tetex
-#BuildPrereq:	texinfo
-#BuildPrereq:	groff
+BuildPrereq:	tetex
+BuildPrereq:	texinfo
+BuildPrereq:	groff
 Prereq:		/sbin/install-info
 Requires: 	libgr-progs
 Buildroot: 	/tmp/%{name}-%{version}-root
@@ -217,8 +217,8 @@ fi
 %defattr(644,root,root,755)
 %dir /var/spool/fax
 %dir /var/spool/fax/incoming
-%attr(-,root,root,1777) %dir /var/spool/fax/outgoing
-%attr(-,root,root,777) %dir /var/spool/fax/outgoing/locks
+%attr(1777,root,root) %dir /var/spool/fax/outgoing
+%attr(777,root,root) %dir /var/spool/fax/outgoing/locks
 
 %attr(755,root,root) /usr/bin/kvg
 %attr(755,root,root) /usr/bin/newslock
