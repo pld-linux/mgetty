@@ -325,9 +325,3 @@ fi
 %dir %{_libdir}/mgetty+sendfax
 %{_libdir}/mgetty+sendfax/viewfax.tif
 %{_mandir}/man1/viewfax.1x*
-
-%changelog
-* Fri May 21 1999 Piotr Czerwiñski <pius@pld.org.pl> 
-  [1.1.20-4]
-- package is FHS 2.0 compliant,
-- spec file based on RH version and rewritten for PLD use.
