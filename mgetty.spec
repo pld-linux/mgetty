@@ -2,7 +2,7 @@ Summary: 	A getty replacement for use with data and fax modems.
 Summary(pl):	Zamiennik getty dla modemów i faxmodemów.
 Name: 		mgetty
 Version:	1.1.20
-Release:	2
+Release:	3
 Group: 		Applications/Communications
 Group(pl):	Aplikacje/Komunikacja
 Copyright:      distributable
@@ -17,9 +17,9 @@ Patch6: 	mgetty-xref.patch
 Patch7: 	mgetty-install.patch
 Patch8:		mgetty-manpages.patch
 Patch9:		mgetty-info.patch
-#BuildPrereq:	tetex
-#BuildPrereq:	texinfo
-#BuildPrereq:	groff
+BuildPrereq:	tetex
+BuildPrereq:	texinfo
+BuildPrereq:	groff
 Prereq:		/sbin/install-info
 Requires: 	libgr-progs
 Buildroot: 	/tmp/%{name}-%{version}-root
@@ -177,7 +177,7 @@ texi2html -monolithic doc/mgetty.texi
 
 gzip -9nf $RPM_BUILD_ROOT/usr/man/{man1,man4,man5,man8}/* \
 	$RPM_BUILD_ROOT/usr/info/* \
-	FAQ BUGS ChangeLog README.1st THANKS doc/*.txt mgetty.html \
+	FAQ BUGS ChangeLog README.1st THANKS doc/*.txt \
 	frontends/X11/viewfax-2.4/C* frontends/X11/viewfax-2.4/README \
 	voice/doc/* doc/modems.db
 gzip -9rnf samples/*
@@ -196,7 +196,7 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc {FAQ,BUGS,ChangeLog,README.1st,THANKS}.gz doc/modems.db.gz
-%doc samples doc/*.txt.gz mgetty.html.gz
+%doc samples doc/*.txt.gz mgetty.html
 %attr(700,root,root) /sbin/mgetty
 /usr/man/man8/mgetty.8.gz
 /usr/man/man8/callback.8.gz
@@ -217,8 +217,8 @@ fi
 %defattr(644,root,root,755)
 %dir /var/spool/fax
 %dir /var/spool/fax/incoming
-%attr(-,root,root,1777) %dir /var/spool/fax/outgoing
-%attr(-,root,root,777) %dir /var/spool/fax/outgoing/locks
+%attr(1777,root,root) %dir /var/spool/fax/outgoing
+%attr(777,root,root) %dir /var/spool/fax/outgoing/locks
 
 %attr(755,root,root) /usr/bin/kvg
 %attr(755,root,root) /usr/bin/newslock
@@ -319,6 +319,11 @@ fi
 /usr/man/man1/viewfax.1x.gz
 
 %changelog
+* Wed Apr 21 1999 Piotr Czerwiñski <pius@pld.org.pl>
+  [1.1.20-3]
+- removed html file from gzipping,
+- recompiled on rpm 3.
+
 * Sun Apr  4 1999 Piotr Czerwiñski <pius@pld.org.pl>
   [1.1.20-2]
 - removed mgetty-strip.patch,
