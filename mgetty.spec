@@ -1,27 +1,27 @@
-Summary:	A getty replacement for use with data and fax modems.
+Summary:	A getty replacement for use with data and fax modems
 Summary(de):	Intelligenter Ersatz für Daten- und Faxmodems 
 Summary(fr):	Remplacement de getty pour les modems données et fax
 Summary(pl):	Zamiennik getty dla modemów i faxmodemów.
 Summary(tr):	Veri ve faks modemleri için yeni ve akýllý bir getty
 Name:		mgetty
 Version:	1.1.22
-Release:	0
+Release:	1
 Copyright:	distributable
 Group:		Applications/Communications
 Group(pl):	Aplikacje/Komunikacja
 URL:		http://www.leo.org/~doering/mgetty/index.html
 Source0:	ftp://ftp.leo.org/pub/comp/os/unix/networking/mgetty/%{name}%{version}-Aug17.tar.gz
-Patch0:		mgetty-config.patch
-Patch1:		mgetty-makekvg.patch
-Patch2:		mgetty-policy.patch
-Patch3:		mgetty-logrotate.patch
-Patch4:		mgetty-imakefile.patch
-Patch5:		mgetty-install.patch
-Patch6:		mgetty-manpages.patch
-Patch7:		mgetty-info.patch
-Patch8:		mgetty-makedoc.patch
-Patch9:		mgetty-faxprint.patch
-Patch10:	mgetty-Omni56K.patch
+Patch0:		%{name}-config.patch
+Patch1:		%{name}-makekvg.patch
+Patch2:		%{name}-policy.patch
+Patch3:		%{name}-logrotate.patch
+Patch4:		%{name}-imakefile.patch
+Patch5:		%{name}-install.patch
+Patch6:		%{name}-manpages.patch
+Patch7:		%{name}-info.patch
+Patch8:		%{name}-makedoc.patch
+Patch9:		%{name}-faxprint.patch
+Patch10:	%{name}-Omni56K.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	tetex
 BuildRequires:	texinfo
@@ -71,7 +71,7 @@ bir getty sürümü bulunur. Otomatik arama ve faks desteði içerir
 mgetty-sendfax paketi gerekir).
 
 %package sendfax
-Summary:	Provides support for sending faxes over a modem.
+Summary:	Provides support for sending faxes over a modem
 Summary(de):	Unterstützung zum Versand und Empfang von Faxnachrichten über ein Faxmodem 
 Summary(fr):	Gestion de l'envoi et de la réception de fax via un faxmodem
 Summary(pl):	Umo¿liwia wysy³anie faksów przez modem
@@ -114,10 +114,10 @@ Bu paket 'FAX Class 2' modemleri için faks gönderme ve alma desteði
 içerir. Ayný zamanda basit bir faks kuyruðu desteði vardýr.
 
 %package voice
-Summary:	A program for using your modem and mgetty as an answering machine.
-Summary(de):	Support für Modems, die Voice-Mail unterstützen 
+Summary:	A program for using your modem and mgetty as an answering machine
+Summary(de):	Support für Modems, die Voice-Mail unterstützen
 Summary(fr):	Gestionnaire pour les modems vocaux
-Summary(pl):	Program pozwalaj±cy na wykorzystanie mgetty i modemu jako automatycznej sekretarki.
+Summary(pl):	Program pozwalaj±cy na wykorzystanie mgetty i modemu jako automatycznej sekretarki
 Summary(tr):	Sesli mektup gönderebilen modemlere destek
 Group:		Applications/Communications
 Group(pl):	Aplikacje/Komunikacja
@@ -154,8 +154,8 @@ swój modem w automatyczn± sekretarkê.
 Bu paket sesli mektup uzantýsý olan bazý modemler için destek içerir.
 
 %package viewfax
-Summary:	An X Window System fax viewer.
-Summary(pl):	Przegl±darka faksów dla X Window System.
+Summary:	An X Window System fax viewer
+Summary(pl):	Przegl±darka faksów dla X Window System
 Group:		Applications/Communications
 Group(pl):	Aplikacje/Komunikacja
 Requires:	%{name} = %{version}
