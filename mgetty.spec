@@ -314,9 +314,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man4/mgettydefs.4*
 %{_infodir}/mgetty.info*
 %dir %{_sysconfdir}/mgetty+sendfax
-%attr(600,root,root) %config %{_sysconfdir}/mgetty+sendfax/login.config
-%attr(600,root,root) %config %{_sysconfdir}/mgetty+sendfax/mgetty.config
-%attr(600,root,root) %config %{_sysconfdir}/mgetty+sendfax/dialin.config
+%attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/mgetty+sendfax/login.config
+%attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/mgetty+sendfax/mgetty.config
+%attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/mgetty+sendfax/dialin.config
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/logrotate.d/ttyS
 
 %files sendfax
@@ -325,7 +325,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir /var/spool/fax/incoming
 %attr(1777,root,root) %dir /var/spool/fax/outgoing
 #%attr(777,root,root) %dir /var/spool/fax/outgoing/locks
-%attr(600,root,root) %config %{_sysconfdir}/mgetty+sendfax/faxspool.rules
+%attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/mgetty+sendfax/faxspool.rules
 
 %attr(755,root,root) %{_bindir}/kvg
 %attr(755,root,root) %{_bindir}/newslock
@@ -358,8 +358,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/callback.8*
 %{_mandir}/man8/faxrunqd.8*
 %config %{_sysconfdir}/mgetty+sendfax/sendfax.config
-%attr(600,root,root) %config %{_sysconfdir}/mgetty+sendfax/faxrunq.config
-%config %{_sysconfdir}/mgetty+sendfax/faxheader
+%attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/mgetty+sendfax/faxrunq.config
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/mgetty+sendfax/faxheader
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/logrotate.d/sendfax
 
 %files voice
@@ -424,7 +424,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/pvffilter.1*
 %{_mandir}/man1/pvfnoise.1*
 %{_mandir}/man8/vgetty.8*
-%attr(600,root,root) %config %{_sysconfdir}/mgetty+sendfax/voice.conf
+%attr(600,root,root) %config(noreplace) %verify(nod md5 mtime size) %{_sysconfdir}/mgetty+sendfax/voice.conf
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/logrotate.d/vm
 
 %files viewfax
