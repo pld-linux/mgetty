@@ -5,10 +5,10 @@ Summary(pl):	Zamiennik getty dla modemów i faxmodemów.
 Summary(tr):	Veri ve faks modemleri için yeni ve akýllý bir getty
 Name: 		mgetty
 Version:	1.1.21
-Release:	3
+Release:	4
+Copyright:      distributable
 Group: 		Applications/Communications
 Group(pl):	Aplikacje/Komunikacja
-Copyright:      distributable
 Source:		ftp://ftp.leo.org/pub/comp/os/unix/networking/mgetty/mgetty1.1.21-Jul24.tar.gz
 Patch0: 	mgetty-config.patch
 Patch1: 	mgetty-makekvg.patch
@@ -181,14 +181,14 @@ cp policy.h-dist policy.h
 %patch9 -p1
 
 %build
-make "RPM_OPT_FLAGS=$RPM_OPT_FLAGS"
+make LDFLAGS="-s"
 cd voice
-make "RPM_OPT_FLAGS=$RPM_OPT_FLAGS"
+make LDFLAGS="-s"
 
 cd ../frontends/X11/viewfax-2.4
 xmkmf
 make depend
-make CDEBUGFLAGS="$RPM_OPT_FLAGS"
+make CDEBUGFLAGS="$RPM_OPT_FLAGS" EXTRA_LDOPTIONS="-s"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -201,8 +201,8 @@ make install \
 	INFODIR=$RPM_BUILD_ROOT%{_infodir} \
 	CONFDIR=$RPM_BUILD_ROOT/etc/mgetty+sendfax
 
-install -s callback/callback $RPM_BUILD_ROOT%{_sbindir}
-install -s callback/ct $RPM_BUILD_ROOT%{_bindir}
+install callback/callback $RPM_BUILD_ROOT%{_sbindir}
+install callback/ct $RPM_BUILD_ROOT%{_bindir}
 
 mv -f $RPM_BUILD_ROOT%{_sbindir}/mgetty $RPM_BUILD_ROOT/sbin
 
