@@ -148,10 +148,10 @@ install -d $RPM_BUILD_ROOT/{var/spool,sbin}
 make prefix=$RPM_BUILD_ROOT/usr spool=$RPM_BUILD_ROOT/var/spool \
 	CONFDIR=$RPM_BUILD_ROOT/etc/mgetty+sendfax install
 
-install -s callback/callback $RPM_BUILD_ROOT/usr/sbin
+install -s callback/callback $RPM_BUILD_ROOT%{_sbindir}
 install -s callback/ct $RPM_BUILD_ROOT%{_bindir}
 
-mv -f $RPM_BUILD_ROOT/usr/sbin/mgetty $RPM_BUILD_ROOT/sbin
+mv -f $RPM_BUILD_ROOT%{_sbindir}/mgetty $RPM_BUILD_ROOT/sbin
 
 # this conflicts with efax
 mv -f $RPM_BUILD_ROOT%{_mandir}/man1/fax.1 $RPM_BUILD_ROOT/usr/man/man1/mgetty_fax.1
@@ -162,7 +162,7 @@ install -d $RPM_BUILD_ROOT/var/spool/voice/{messages,incoming}
 make prefix=$RPM_BUILD_ROOT/usr spool=$RPM_BUILD_ROOT/var/spool \
 	CONFDIR=$RPM_BUILD_ROOT/etc/mgetty+sendfax install -C voice
 
-mv -f $RPM_BUILD_ROOT/usr/sbin/vgetty $RPM_BUILD_ROOT/sbin
+mv -f $RPM_BUILD_ROOT%{_sbindir}/vgetty $RPM_BUILD_ROOT/sbin
 install voice/voice.conf-dist $RPM_BUILD_ROOT/etc/mgetty+sendfax/voice.conf
 
 make DESTDIR=$RPM_BUILD_ROOT install -C frontends/X11/viewfax-2.4
@@ -231,9 +231,9 @@ fi
 %attr(755,root,root) %{_bindir}/faxq
 %attr(755,root,root) %{_bindir}/faxrm
 %attr(4711,root,root) %{_bindir}/ct
-%attr(700,root,root) /usr/sbin/sendfax
-%attr(700,root,root) /usr/sbin/faxrunqd
-%attr(700,root,root) /usr/sbin/callback
+%attr(700,root,root) %{_sbindir}/sendfax
+%attr(700,root,root) %{_sbindir}/faxrunqd
+%attr(700,root,root) %{_sbindir}/callback
 %dir %{_libdir}/mgetty+sendfax
 %{_libdir}/mgetty+sendfax/cour25.pbm
 %{_libdir}/mgetty+sendfax/cour25n.pbm
