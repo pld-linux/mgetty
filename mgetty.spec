@@ -10,7 +10,6 @@ Version:	1.1.30
 Release:	2
 License:	distributable
 Group:		Applications/Communications
-URL:		http://alpha.greenie.net/mgetty/
 Source0:	ftp://alpha.greenie.net/pub/mgetty/source/1.1/%{name}%{version}-Dec16.tar.gz
 # Source0-md5:	4b80c418bc58add3e40de3be0ac6c02a
 Source1:	%{name}-sendfax.logrotate
@@ -29,10 +28,11 @@ Patch9:		%{name}-called-id-patch-current
 Patch10:	%{name}-voiceconfig.patch
 Patch11:	%{name}-issue.patch
 Patch12:	%{name}-force_detect.patch
+URL:		http://alpha.greenie.net/mgetty/
 BuildRequires:	XFree86-devel
+BuildRequires:	groff
 BuildRequires:	tetex
 BuildRequires:	texinfo
-BuildRequires:	groff
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		viewfax_version		2.5
@@ -100,8 +100,8 @@ Summary(pl):	Umo¿liwia wysy³anie faksów przez modem
 Summary(pt_BR):	Suporte ao envio e recepção de faxes via faxmodem
 Summary(tr):	1 veya 2 sýnýfý modemler üzerinden fax gönderme desteði
 Group:		Applications/Communications
+Requires:	%{name} = %{version}-%{release}
 Requires:	netpbm-progs
-Requires:	%{name} = %{version}
 
 %description sendfax
 Sendfax is a standalone backend program for sending fax files. The
@@ -129,11 +129,11 @@ attentes de fax.
 %description sendfax -l pl
 Sendfax jest samodzielnym programem do wysy³ania faksów. Program
 mgetty (zamiennik getty dla przyjmowania po³±czeñ przez linie
-szeregowe) + sendfax pozwol± ci na wysy³anie faksów w standardzie
+szeregowe) + sendfax pozwol± na wysy³anie faksów w standardzie
 Class 2.
 
-Je¶li chcia³by¶ wysy³aæ faksy przez modem obs³uguj±cy standard Class
-2, musisz zainstalowaæ pakiety: mgetty-sendfax i mgetty.
+Je¶li chcemy wysy³aæ faksy przez modem obs³uguj±cy standard Class 2,
+musimy zainstalowaæ pakiety: mgetty-sendfax i mgetty.
 
 %description sendfax -l pt_BR
 Este pacote inclui suporte para o envio e recepção de faxes em fax-modems
@@ -152,7 +152,7 @@ Summary(pl):	Program pozwalaj±cy na wykorzystanie mgetty i modemu jako automatyc
 Summary(pt_BR):	Suporte para modems com capacidade de mail por voz
 Summary(tr):	Sesli mektup gönderebilen modemlere destek
 Group:		Applications/Communications
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description voice
 The mgetty-voice package contains the vgetty system, which enables
@@ -177,13 +177,13 @@ des extensions voice mail.
 
 %description voice -l pl
 Pakiet mgetty-voice zawiera system vgetty, który zezwala mgetty i
-twojemu modemowi na obs³ugê g³osu. Mówi±c krótko, vgetty pozwala
-twojemu modemowi pracowaæ jako automatyczna sekretarka. To, jak dobrze
-bêdzie ten system dzia³a³, zale¿y od tego, czy twój modem obs³uguje
-tego rodzaju funkcje.
+modemowi na obs³ugê g³osu. Mówi±c krótko, vgetty pozwala modemowi
+pracowaæ jako automatyczna sekretarka. To, jak dobrze bêdzie ten
+system dzia³a³, zale¿y od tego, czy modem obs³uguje tego rodzaju
+funkcje.
 
-Zainstaluj mgetty-voice razem z mgetty, je¶li chcia³by¶ przemieniæ
-swój modem w automatyczn± sekretarkê.
+Nale¿y zainstalowaæ mgetty-voice razem z mgetty, je¶li chcemy
+przemieniæ swój modem w automatyczn± sekretarkê.
 
 %description voice -l pt_BR
 Este pacote inclui suporte a alguns modems que têm extensões de voice mail.
@@ -198,27 +198,22 @@ Summary(pl):	Przegl±darka faksów dla X Window System
 Summary(pt_BR):	Visualizador de faxes para X11
 Epoch:		1
 Group:		Applications/Communications
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description viewfax
 Viewfax displays the fax files received using mgetty in an X11 window.
 Viewfax is capable of zooming in and out on the displayed fax.
 
-If you're installing the mgetty-viewfax package, you'll also need to
-install mgetty.
-
 %description viewfax -l es
 Este paquete ofrece un visor de faxes para X11 con capacidad de zoom.
 
 %description viewfax -l pl
-Viewfax jest narzêdziem dla X11, którym mo¿esz przegl±daæ otrzymane
+Viewfax jest narzêdziem dla X11, którym mo¿na przegl±daæ otrzymane
 przy pomocy mgetty faksy.
 
-Je¶li instalujesz pakiet mgetty-viewfax musisz równie¿ zainstalowaæ
-mgetty.
-
 %description viewfax -l pt_BR
-Este pacote fornece um visualizador de faxes para X11 com capacidade de zoom.
+Este pacote fornece um visualizador de faxes para X11 com capacidade
+de zoom.
 
 %prep
 %setup -q
@@ -239,19 +234,23 @@ cp -f policy.h-dist policy.h
 %patch12 -p1
 
 %build
-%{__make} LDFLAGS="%{rpmldflags}"
+%{__make} \
+	LDFLAGS="%{rpmldflags}"
 cd voice
-%{__make} LDFLAGS="%{rpmldflags}"
+%{__make} \
+	LDFLAGS="%{rpmldflags}"
 
 cd ../frontends/X11/viewfax-%{viewfax_version}
 xmkmf
 %{__make} depend
-%{__make} CDEBUGFLAGS="%{rpmcflags}" EXTRA_LDOPTIONS="%{rpmldflags}"
+%{__make} \
+	CDEBUGFLAGS="%{rpmcflags}" \
+	EXTRA_LDOPTIONS="%{rpmldflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/{var/spool/voice/{messages,incoming},sbin,etc/logrotate.d} \
-$RPM_BUILD_ROOT%{_libdir}/mgetty+sendfax
+install -d $RPM_BUILD_ROOT{/var/spool/voice/{messages,incoming},/sbin,/etc/logrotate.d} \
+	$RPM_BUILD_ROOT%{_libdir}/mgetty+sendfax
 
 %{__make} install \
 	prefix=$RPM_BUILD_ROOT%{_prefix} \
