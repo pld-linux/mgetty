@@ -1,0 +1,91 @@
+--- mgetty-1.1.26/doc/mgetty.8in.issue	Tue Jul 10 20:06:46 2001
++++ mgetty-1.1.26/doc/mgetty.8in	Tue Jul 10 20:08:46 2001
+@@ -42,14 +42,14 @@
+ .B -p <login prompt>
+ Use the given string to prompt users for their login names. Various
+ tokens are allowed in this string. These tokens are: @ for the system
+-name, \\n, \\r, \\g, \\v, \\f, \\t for newline, carriage return, bell,
+-vertical tab, form feed, and tab, respectively. \\P and \\L will expand to
+-the tty name ("ttyS0"). \\I will give the "CONNECT foobar" string returned
+-by the modem, and \\S will output the port speed.
+-\\N and \\U give the number of users currently logged in.
+-\\C will be changed into the result of ctime(), and \\D and \\T will
+-output the date and time, respectively. Finally, \\<digit> will use digit
+-as octal/decimal/hexadecimal representation of the character to follow.
++name, \\n, \\g, \\v, \\f for newline, bell, vertical tab, and form feed,
++respectively. \\P, \\l and \\L will expand to the tty name ("ttyS0"). \\I
++will give the "CONNECT foobar" string returned by the modem, and \\S and
++\\b will output the port speed. \\N and \\U give the number of users
++currently logged in. \\C will be changed into the result of ctime(), and
++\\D or \\d and \\T or \\t will output the date and time, respectively.
++Finally, \\<digit> will use digit as octal/decimal/hexadecimal representation
++of the character to follow.
+ 
+ The default prompt is specified at compile time.
+ .TP
+--- mgetty-1.1.26/logname.c.issue	Tue Jul 10 19:00:00 2001
++++ mgetty-1.1.26/logname.c	Tue Jul 10 20:05:38 2001
+@@ -87,12 +87,12 @@
+ 	    switch ( *ep )
+ 	    {
+ 	      case 'n': p[i++] = '\n'; break;
+-	      case 'r': p[i++] = '\r'; break;
++	      /* case 'r': p[i++] = '\r'; break; */
+ 	      case 'g': p[i++] = '\007'; break;
+-	      case 'b': p[i++] = '\010'; break;
+-	      case 'v': p[i++] = '\013'; break;
++	      /* case 'b': p[i++] = '\010'; break; */
++	      /* case 'v': p[i++] = '\013'; break; */
+ 	      case 'f': p[i++] = '\f'; break;
+-	      case 't': p[i++] = '\t'; break;
++	      /* case 't': p[i++] = '\t'; break; */
+ 	      case 's':					/* Operating System */
+ 		    if ( i + strlen(un.sysname) +1 > MAX_PROMPT_LENGTH ) break;
+ 		    i += strappnd( &p[i], un.sysname );
+@@ -101,10 +101,12 @@
+ 		    if ( i + strlen(un.machine) +1 > MAX_PROMPT_LENGTH ) break;
+ 		    i += strappnd( &p[i], un.machine );
+ 		    break;
++	      case 'r':
+ 	      case 'R':					/* OS release */
+ 		    if ( i + strlen(un.release) +1 > MAX_PROMPT_LENGTH ) break;
+ 		    i += strappnd( &p[i], un.release );
+ 		    break;
++	      case 'v':
+ 	      case 'V':					/* OS version */
+ 		    if ( i + strlen(un.version) +1 > MAX_PROMPT_LENGTH ) break;
+ 		    i += strappnd( &p[i], un.version );
+@@ -116,6 +118,7 @@
+ 		    i += strappnd( &p[i], CallerId );
+ 		    break;
+ 		}
++	      case 'l':
+ 	      case 'P':					/* port name */
+ 	      case 'L':					/* tty line */
+ 		{
+@@ -144,6 +147,7 @@
+ 		    i = strlen(p);
+ 		    break;
+ 		}
++	      case 'b':
+ 	      case 'S':					/* port speed */
+ 		{					/* ugly, I know. */
+ 		    TIO temp_t;
+@@ -152,6 +156,8 @@
+ 		    i = strlen(p);
+ 		}
+ 		break;
++	      case 'd':
++	      case 't':
+ 	      case 'D':			/* fallthrough */
+ 	      case 'T':
+ 		if ( i + 30 > MAX_PROMPT_LENGTH )
+@@ -165,7 +171,7 @@
+ 
+ 		    if ( tm == NULL ) break;
+ 
+-		    if ( *ep == 'D' )
++		    if ( *ep == 'D' || *ep == 'd' )
+ 		        sprintf( &p[i], "%d/%d/%d", tm->tm_mon+1,
+ 				 tm->tm_mday, tm->tm_year + 1900 );
+ 		    else
