@@ -1,3 +1,5 @@
+# TODO: need update patch11
+
 Summary:	A getty replacement for use with data and fax modems
 Summary(de):	Intelligenter Ersatz für Daten- und Faxmodems
 Summary(es):	Un substituto mejor que el getty para módems de datos y fax
@@ -7,7 +9,7 @@ Summary(pt_BR):	Um substituto melhor do que o getty para modems de dados e fax
 Summary(tr):	Veri ve faks modemleri için yeni ve akýllý bir getty
 Name:		mgetty
 Version:	1.1.31
-Release:	0.1
+Release:	0.9
 License:	distributable
 Group:		Applications/Communications
 Source0:	ftp://alpha.greenie.net/pub/mgetty/source/1.1/%{name}%{version}-Jul24.tar.gz
