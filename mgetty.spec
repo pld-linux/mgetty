@@ -6,12 +6,12 @@ Summary(pl):	Zamiennik getty dla modemów i faksmodemów
 Summary(pt_BR):	Um substituto melhor do que o getty para modems de dados e fax
 Summary(tr):	Veri ve faks modemleri için yeni ve akýllý bir getty
 Name:		mgetty
-Version:	1.1.30
-Release:	2
+Version:	1.1.31
+Release:	1
 License:	distributable
 Group:		Applications/Communications
-Source0:	ftp://alpha.greenie.net/pub/mgetty/source/1.1/%{name}%{version}-Dec16.tar.gz
-# Source0-md5:	4b80c418bc58add3e40de3be0ac6c02a
+Source0:	ftp://alpha.greenie.net/pub/mgetty/source/1.1/%{name}%{version}-Jul24.tar.gz
+# Source0-md5:	3462a0acbdb2e7165540ef95097d49fb
 Source1:	%{name}-sendfax.logrotate
 Source2:	%{name}-vm.logrotate
 Source3:	%{name}-ttyS.logrotate
@@ -230,7 +230,7 @@ cp -f policy.h-dist policy.h
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
-%patch11 -p1
+#%patch11 -p1
 %patch12 -p1
 
 %build
