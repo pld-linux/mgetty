@@ -188,20 +188,20 @@ cp policy.h-dist policy.h
 %patch9 -p1
 
 %build
-make LDFLAGS="-s"
+%{__make} LDFLAGS="-s"
 cd voice
-make LDFLAGS="-s"
+%{__make} LDFLAGS="-s"
 
 cd ../frontends/X11/viewfax-2.4
 xmkmf
-make depend
-make CDEBUGFLAGS="$RPM_OPT_FLAGS" EXTRA_LDOPTIONS="-s"
+%{__make} depend
+%{__make} CDEBUGFLAGS="$RPM_OPT_FLAGS" EXTRA_LDOPTIONS="-s"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/{var/spool,sbin}
 
-make install \
+%{__make} install \
 	prefix=$RPM_BUILD_ROOT%{_prefix} \
 	spool=$RPM_BUILD_ROOT/var/spool \
 	MANDIR=$RPM_BUILD_ROOT%{_mandir} \
@@ -220,7 +220,7 @@ mv -f $RPM_BUILD_ROOT%{_mandir}/man1/fax.1 \
 # voice mail extensions
 install -d $RPM_BUILD_ROOT/var/spool/voice/{messages,incoming}
 
-make install -C voice \
+%{__make} install -C voice \
 	prefix=$RPM_BUILD_ROOT%{_prefix} \
 	spool=$RPM_BUILD_ROOT/var/spool \
 	MANDIR=$RPM_BUILD_ROOT%{_mandir} \
@@ -230,9 +230,9 @@ make install -C voice \
 mv -f $RPM_BUILD_ROOT%{_sbindir}/vgetty $RPM_BUILD_ROOT/sbin
 install voice/voice.conf-dist $RPM_BUILD_ROOT%{_sysconfdir}/mgetty+sendfax/voice.conf
 
-make install -C frontends/X11/viewfax-2.4 \
+%{__make} install -C frontends/X11/viewfax-2.4 \
 	DESTDIR=$RPM_BUILD_ROOT
-make install.man -C frontends/X11/viewfax-2.4 \
+%{__make} install.man -C frontends/X11/viewfax-2.4 \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT/etc/logrotate.d
