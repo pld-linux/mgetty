@@ -8,7 +8,7 @@
 -MANDIR = /usr/local/man/man1	/* where you want the man file installed */
 -HELPDIR = /usr/local/lib	/* where you want the help file installed */
 +BINDIR = /usr/bin		/* where you want the binary installed */
-+MANDIR = /usr/man/man1	/* where you want the man file installed */
++MANDIR = /usr/share/man/man1	/* where you want the man file installed */
 +HELPDIR = /usr/lib/mgetty+sendfax	/* where you want the help file installed */
  #endif
  
