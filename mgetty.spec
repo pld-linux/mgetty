@@ -184,7 +184,7 @@ install logrotate.sendfax $RPM_BUILD_ROOT/etc/logrotate.d/sendfax
 # make the html documenatation
 texi2html -monolithic doc/mgetty.texi
 
-gzip -9nf $RPM_BUILD_ROOT{%{_mandir}/man?/*,{_infodir}/*} \
+gzip -9nf $RPM_BUILD_ROOT{%{_mandir}/man?/*,%{_infodir}/*} \
 	FAQ BUGS ChangeLog README.1st THANKS doc/*.txt \
 	frontends/X11/viewfax-2.4/C* frontends/X11/viewfax-2.4/README \
 	voice/doc/* doc/modems.db samples/*
