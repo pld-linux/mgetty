@@ -2,7 +2,7 @@ Summary:	A getty replacement for use with data and fax modems
 Summary(de):	Intelligenter Ersatz für Daten- und Faxmodems
 Summary(es):	Un substituto mejor que el getty para módems de datos y fax
 Summary(fr):	Remplacement de getty pour les modems données et fax
-Summary(pl):	Zamiennik getty dla modemów i faxmodemów
+Summary(pl):	Zamiennik getty dla modemów i faksmodemów
 Summary(pt_BR):	Um substituto melhor do que o getty para modems de dados e fax
 Summary(tr):	Veri ve faks modemleri için yeni ve akýllý bir getty
 Name:		mgetty
