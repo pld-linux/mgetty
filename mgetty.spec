@@ -22,6 +22,8 @@ Patch7:		%{name}-info.patch
 Patch8:		%{name}-makedoc.patch
 Patch9:		%{name}-faxprint.patch
 Patch10:	%{name}-Omni56K.patch
+Patch11:	%{name}-%{version}-to-16112000
+Patch12:	%{name}-called-id-patch-current
 BuildRequires:	XFree86-devel
 BuildRequires:	tetex
 BuildRequires:	texinfo
@@ -188,7 +190,9 @@ cp policy.h-dist policy.h
 %patch7 -p1
 %patch8 -p0
 %patch9 -p1
-%patch10 -p1
+#%patch10 -p1
+%patch11 -p1
+%patch12 -p1
 
 %build
 %{__make} LDFLAGS="-s"
