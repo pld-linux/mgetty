@@ -5,7 +5,7 @@ Summary(pl):	Zamiennik getty dla modemów i faxmodemów.
 Summary(tr):	Veri ve faks modemleri için yeni ve akýllý bir getty
 Name: 		mgetty
 Version:	1.1.21
-Release:	2
+Release:	3
 Group: 		Applications/Communications
 Group(pl):	Aplikacje/Komunikacja
 Copyright:      distributable
@@ -19,6 +19,7 @@ Patch5: 	mgetty-install.patch
 Patch6:		mgetty-manpages.patch
 Patch7:		mgetty-info.patch
 Patch8:		mgetty-makedoc.patch
+Patch9:		mgetty-faxprint.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	tetex
 BuildRequires:	texinfo
@@ -177,6 +178,7 @@ cp policy.h-dist policy.h
 %patch6 -p1
 %patch7 -p1
 %patch8 -p0
+%patch9 -p1
 
 %build
 make "RPM_OPT_FLAGS=$RPM_OPT_FLAGS"
