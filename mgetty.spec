@@ -248,13 +248,6 @@ install %{SOURCE3} $RPM_BUILD_ROOT/etc/logrotate.d/ttyS
 # make the html documenatation
 texi2html -monolithic doc/mgetty.texi
 
-gzip -9nf \
-	BUGS ChangeLog README.1st THANKS doc/*.txt \
-	frontends/X11/viewfax-%{viewfax_version}/C* \
-	frontends/X11/viewfax-%{viewfax_version}/README \
-	voice/doc/* doc/modems.db
-find samples -type f -exec gzip -9nf {} \;
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -266,8 +259,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc {BUGS,ChangeLog,README.1st,THANKS}.gz doc/modems.db.gz
-%doc samples doc/*.txt.gz mgetty.html faq/SGML/FAQ.sgml
+%doc BUGS ChangeLog README.1st THANKS doc/modems.db
+%doc samples doc/*.txt mgetty.html faq/SGML/FAQ.sgml
 %attr(700,root,root) /sbin/mgetty
 %{_mandir}/man8/mgetty.8*
 %{_mandir}/man4/mgettydefs.4*
