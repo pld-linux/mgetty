@@ -25,7 +25,7 @@ BuildRequires:	tetex
 BuildRequires:	texinfo
 BuildRequires:	groff
 Prereq:		/usr/sbin/fix-info-dir
-BuildRoot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 The mgetty package contains a "smart" getty which allows logins over a
