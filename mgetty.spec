@@ -16,10 +16,10 @@ Patch5: 	mgetty-install.patch
 Patch6:		mgetty-manpages.patch
 Patch7:		mgetty-info.patch
 Patch8:		mgetty-makedoc.patch
-BuildPrereq:	XFree86-devel
-BuildPrereq:	tetex
-BuildPrereq:	texinfo
-BuildPrereq:	groff
+BuildRequires:	XFree86-devel
+BuildRequires:	tetex
+BuildRequires:	texinfo
+BuildRequires:	groff
 Prereq:		/sbin/install-info
 Requires: 	libgr-progs
 BuildRoot:	/tmp/%{name}-%{version}-root
