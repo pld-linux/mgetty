@@ -187,7 +187,8 @@ texi2html -monolithic doc/mgetty.texi
 gzip -9nf $RPM_BUILD_ROOT{%{_mandir}/man?/*,%{_infodir}/*} \
 	FAQ BUGS ChangeLog README.1st THANKS doc/*.txt \
 	frontends/X11/viewfax-2.4/C* frontends/X11/viewfax-2.4/README \
-	voice/doc/* doc/modems.db samples/*
+	voice/doc/* doc/modems.db
+find samples -type f -exec gzip -9nf {} \;
 
 %clean
 rm -rf $RPM_BUILD_ROOT
