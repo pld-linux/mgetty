@@ -17,6 +17,7 @@ Patch6: 	mgetty-xref.patch
 Patch7: 	mgetty-install.patch
 Patch8:		mgetty-manpages.patch
 Patch9:		mgetty-info.patch
+BuildPrereq:	XFree86-devel
 BuildPrereq:	tetex
 BuildPrereq:	texinfo
 BuildPrereq:	groff
