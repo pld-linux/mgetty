@@ -28,6 +28,7 @@ Patch8:		%{name}-faxprint.patch
 Patch9:		%{name}-called-id-patch-current
 Patch10:	%{name}-voiceconfig.patch
 Patch11:	%{name}-issue.patch
+Patch12:	%{name}-force_detect.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	tetex
 BuildRequires:	texinfo
@@ -235,6 +236,7 @@ cp -f policy.h-dist policy.h
 %patch9 -p1
 %patch10 -p1
 %patch11 -p1
+%patch12 -p1
 
 %build
 %{__make} LDFLAGS="%{rpmldflags}"
@@ -287,6 +289,9 @@ install %{SOURCE1} $RPM_BUILD_ROOT/etc/logrotate.d/sendfax
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/logrotate.d/vm
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/logrotate.d/ttyS
 
+mv $RPM_BUILD_ROOT%{_sysconfdir}/mgetty+sendfax/faxspool.rules.sample \
+	$RPM_BUILD_ROOT%{_sysconfdir}/mgetty+sendfax/faxspool.rules
+
 # make the html documenatation
 texi2html -monolithic doc/mgetty.texi
 
@@ -319,6 +324,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir /var/spool/fax/incoming
 %attr(1777,root,root) %dir /var/spool/fax/outgoing
 #%attr(777,root,root) %dir /var/spool/fax/outgoing/locks
+%attr(600,root,root) %config %{_sysconfdir}/mgetty+sendfax/faxspool.rules
 
 %attr(755,root,root) %{_bindir}/kvg
 %attr(755,root,root) %{_bindir}/newslock
@@ -336,6 +342,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/mgetty+sendfax
 %{_libdir}/mgetty+sendfax/cour25.pbm
 %{_libdir}/mgetty+sendfax/cour25n.pbm
+%{_libdir}/mgetty+sendfax/faxq-helper
 %{_mandir}/man1/g32pbm.1*
 %{_mandir}/man1/pbm2g3.1*
 %{_mandir}/man1/g3cat.1*
@@ -385,6 +392,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/autopvf
 %attr(755,root,root) %{_bindir}/pvftowav
 %attr(755,root,root) %{_bindir}/wavtopvf
+%attr(755,root,root) %{_bindir}/cutbl
+%attr(755,root,root) %{_bindir}/pvffilter
+%attr(755,root,root) %{_bindir}/pvfnoise
+
+
 
 %{_mandir}/man1/zplay.1*
 %{_mandir}/man1/pvf.1*
@@ -410,6 +422,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/autopvf.1*
 %{_mandir}/man1/pvftowav.1*
 %{_mandir}/man1/wavtopvf.1*
+%{_mandir}/man1/pvffilter.1*
+%{_mandir}/man1/pvfnoise.1*
+%{_mandir}/man8/vgetty.8*
 %attr(600,root,root) %config %{_sysconfdir}/mgetty+sendfax/voice.conf
 /etc/logrotate.d/vm
 
