@@ -5,7 +5,7 @@ Summary(pl):	Zamiennik getty dla modemów i faxmodemów.
 Summary(tr):	Veri ve faks modemleri için yeni ve akýllý bir getty
 Name:		mgetty
 Version:	1.1.26
-Release:	6
+Release:	7
 License:	distributable
 Group:		Applications/Communications
 Group(de):	Applikationen/Kommunikation
@@ -250,7 +250,7 @@ install voice/voice.conf-dist $RPM_BUILD_ROOT%{_sysconfdir}/mgetty+sendfax/voice
 	DESTDIR=$RPM_BUILD_ROOT 
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/logrotate.d/sendfax
-install %{SOURCE1} $RPM_BUILD_ROOT/etc/logrotate.d/vm
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/logrotate.d/vm
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/logrotate.d/ttyS
 
 # make the html documenatation
