@@ -234,9 +234,9 @@ fi
 %attr(700,root,root) /usr/sbin/sendfax
 %attr(700,root,root) /usr/sbin/faxrunqd
 %attr(700,root,root) /usr/sbin/callback
-%dir /usr/lib/mgetty+sendfax
-/usr/lib/mgetty+sendfax/cour25.pbm
-/usr/lib/mgetty+sendfax/cour25n.pbm
+%dir %{_libdir}/mgetty+sendfax
+%{_libdir}/mgetty+sendfax/cour25.pbm
+%{_libdir}/mgetty+sendfax/cour25n.pbm
 %{_mandir}/man1/g32pbm.1.gz
 %{_mandir}/man1/pbm2g3.1.gz
 %{_mandir}/man1/g3cat.1.gz
@@ -315,8 +315,8 @@ fi
 %defattr(644,root,root,755)
 %doc frontends/X11/viewfax-2.4/C* frontends/X11/viewfax-2.4/README.gz
 %attr(755,root,root) /usr/bin/viewfax
-%dir /usr/lib/mgetty+sendfax
-/usr/lib/mgetty+sendfax/viewfax.tif
+%dir %{_libdir}/mgetty+sendfax
+%{_libdir}/mgetty+sendfax/viewfax.tif
 %{_mandir}/man1/viewfax.1x.gz
 
 %changelog
