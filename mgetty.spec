@@ -4,13 +4,13 @@ Summary(fr):	Remplacement de getty pour les modems données et fax
 Summary(pl):	Zamiennik getty dla modemów i faxmodemów.
 Summary(tr):	Veri ve faks modemleri için yeni ve akýllý bir getty
 Name:		mgetty
-Version:	1.1.22
+Version:	1.1.25
 Release:	1
 Copyright:	distributable
 Group:		Applications/Communications
 Group(pl):	Aplikacje/Komunikacja
 URL:		http://www.leo.org/~doering/mgetty/index.html
-Source0:	ftp://ftp.leo.org/pub/comp/os/unix/networking/mgetty/%{name}%{version}-Aug17.tar.gz
+Source0:	ftp://ftp.leo.org/pub/comp/os/unix/networking/mgetty/%{name}%{version}-Feb01.tar.gz
 Patch0:		%{name}-config.patch
 Patch1:		%{name}-makekvg.patch
 Patch2:		%{name}-policy.patch
@@ -21,14 +21,14 @@ Patch6:		%{name}-manpages.patch
 Patch7:		%{name}-info.patch
 Patch8:		%{name}-makedoc.patch
 Patch9:		%{name}-faxprint.patch
-Patch10:	%{name}-Omni56K.patch
-Patch11:	%{name}-%{version}-to-16112000
 Patch12:	%{name}-called-id-patch-current
 BuildRequires:	XFree86-devel
 BuildRequires:	tetex
 BuildRequires:	texinfo
 BuildRequires:	groff
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		viewfax_version		2.5
 
 %description
 The mgetty package contains a "smart" getty which allows logins over a
@@ -190,8 +190,6 @@ cp policy.h-dist policy.h
 %patch7 -p1
 %patch8 -p0
 %patch9 -p1
-#%patch10 -p1
-%patch11 -p1
 %patch12 -p1
 
 %build
@@ -199,7 +197,7 @@ cp policy.h-dist policy.h
 cd voice
 %{__make} LDFLAGS="-s"
 
-cd ../frontends/X11/viewfax-2.4
+cd ../frontends/X11/viewfax-%{viewfax_version}
 xmkmf
 %{__make} depend
 %{__make} CDEBUGFLAGS="$RPM_OPT_FLAGS" EXTRA_LDOPTIONS="-s"
@@ -237,10 +235,11 @@ install -d $RPM_BUILD_ROOT/var/spool/voice/{messages,incoming}
 mv -f $RPM_BUILD_ROOT%{_sbindir}/vgetty $RPM_BUILD_ROOT/sbin
 install voice/voice.conf-dist $RPM_BUILD_ROOT%{_sysconfdir}/mgetty+sendfax/voice.conf
 
-%{__make} install -C frontends/X11/viewfax-2.4 \
+install -d $RPM_BUILD_ROOT/usr/X11R6/lib/mgetty+sendfax
+%{__make} install -C frontends/X11/viewfax-%{viewfax_version} \
 	DESTDIR=$RPM_BUILD_ROOT
-%{__make} install.man -C frontends/X11/viewfax-2.4 \
-	DESTDIR=$RPM_BUILD_ROOT
+%{__make} install.man -C frontends/X11/viewfax-%{viewfax_version} \
+	DESTDIR=$RPM_BUILD_ROOT 
 
 install -d $RPM_BUILD_ROOT/etc/logrotate.d
 install logrotate.mgetty $RPM_BUILD_ROOT/etc/logrotate.d/mgetty
@@ -249,9 +248,9 @@ install logrotate.sendfax $RPM_BUILD_ROOT/etc/logrotate.d/sendfax
 # make the html documenatation
 texi2html -monolithic doc/mgetty.texi
 
-gzip -9nf $RPM_BUILD_ROOT{%{_mandir}/man?/*,%{_infodir}/*} \
+gzip -9nf \
 	BUGS ChangeLog README.1st THANKS doc/*.txt \
-	frontends/X11/viewfax-2.4/C* frontends/X11/viewfax-2.4/README \
+	frontends/X11/viewfax-%{viewfax_version}/C* frontends/X11/viewfax-%{viewfax_version}/README \
 	voice/doc/* doc/modems.db
 find samples -type f -exec gzip -9nf {} \;
 
@@ -378,8 +377,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) %config %{_sysconfdir}/mgetty+sendfax/voice.conf
 
 %files viewfax
+%define 	_prefix		/usr/X11R6
+%define         _mandir         %{_prefix}/man
 %defattr(644,root,root,755)
-%doc frontends/X11/viewfax-2.4/C* frontends/X11/viewfax-2.4/README.gz
+%doc frontends/X11/viewfax-%{viewfax_version}/C* frontends/X11/viewfax-%{viewfax_version}/README.gz
 %attr(755,root,root) %{_bindir}/viewfax
 %dir %{_libdir}/mgetty+sendfax
 %{_libdir}/mgetty+sendfax/viewfax.tif
