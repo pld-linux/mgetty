@@ -317,7 +317,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/mgetty+sendfax/login.config
 %attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/mgetty+sendfax/mgetty.config
 %attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/mgetty+sendfax/dialin.config
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/logrotate.d/ttyS
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/ttyS
 
 %files sendfax
 %defattr(644,root,root,755)
@@ -360,7 +360,7 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/mgetty+sendfax/sendfax.config
 %attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/mgetty+sendfax/faxrunq.config
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/mgetty+sendfax/faxheader
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/logrotate.d/sendfax
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/sendfax
 
 %files voice
 %defattr(644,root,root,755)
@@ -425,7 +425,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/pvfnoise.1*
 %{_mandir}/man8/vgetty.8*
 %attr(600,root,root) %config(noreplace) %verify(nod md5 mtime size) %{_sysconfdir}/mgetty+sendfax/voice.conf
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /etc/logrotate.d/vm
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/vm
 
 %files viewfax
 %defattr(644,root,root,755)
