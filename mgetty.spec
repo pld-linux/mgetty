@@ -4,12 +4,12 @@ Summary(fr):	Remplacement de getty pour les modems données et fax
 Summary(pl):	Zamiennik getty dla modemów i faxmodemów
 Summary(tr):	Veri ve faks modemleri için yeni ve akýllý bir getty
 Name:		mgetty
-Version:	1.1.26
-Release:	7
+Version:	1.1.30
+Release:	0.1
 License:	distributable
 Group:		Applications/Communications
-URL:		http://www.leo.org/~doering/mgetty/index.html
-Source0:	ftp://ftp.leo.org/pub/comp/os/unix/networking/mgetty/%{name}%{version}-Apr16.tar.gz
+URL:		http://alpha.greenie.net/mgetty/
+Source0:	ftp://alpha.greenie.net/pub/mgetty/source/1.1/%{name}%{version}-Dec16.tar.gz
 Source1:	%{name}-sendfax.logrotate
 Source2:	%{name}-vm.logrotate
 Source3:	%{name}-ttyS.logrotate
