@@ -10,17 +10,6 @@ diff -urP tt/mgetty-current-plus-ring-patch/Makefile TT2/Makefile
  #CFLAGS=-O -DSVR4
  #CFLAGS=-O -DSVR4 -DSVR42
  #CFLAGS=-O -DUSE_POLL
-@@ -285,8 +285,8 @@
- # Nothing to change below this line ---------------------------------!
- #
- MR=1.1
--SR=22
--DIFFR=1.1.21
-+SR=17
-+DIFFR=1.1.16
- #
- #
- OBJS=mgetty.o logfile.o do_chat.o locks.o utmp.o logname.o login.o \
 @@ -450,9 +450,6 @@
  
  diff:	mgetty$(DIFFR)-$(MR).$(SR).diff.gz

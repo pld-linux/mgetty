@@ -1,5 +1,5 @@
 --- mgetty-1.1.21/frontends/X11/viewfax-2.4/viewfax.c.faxprint	Tue Sep  7 15:24:22 1999
-+++ mgetty-1.1.21/frontends/X11/viewfax-2.4/viewfax.c	Tue Sep  7 15:26:28 1999
++++ mgetty-1.1.21/frontends/X11/viewfax-2.5/viewfax.c	Tue Sep  7 15:26:28 1999
 @@ -758,6 +758,13 @@
  			      0, 0, PaneWidth, PaneHeight);
  		    XDefineCursor(Disp, Win, ReadyCursor);
