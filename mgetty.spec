@@ -6,8 +6,9 @@ Summary(tr):	Veri ve faks modemleri için yeni ve akýllý bir getty
 Name:		mgetty
 Version:	1.1.25
 Release:	1
-Copyright:	distributable
+License:	distributable
 Group:		Applications/Communications
+Group(de):	Applikationen/Kommunikation
 Group(pl):	Aplikacje/Komunikacja
 URL:		http://www.leo.org/~doering/mgetty/index.html
 Source0:	ftp://ftp.leo.org/pub/comp/os/unix/networking/mgetty/%{name}%{version}-Feb01.tar.gz
@@ -79,6 +80,7 @@ Summary(fr):	Gestion de l'envoi et de la réception de fax via un faxmodem
 Summary(pl):	Umo¿liwia wysy³anie faksów przez modem
 Summary(tr):	1 veya 2 sýnýfý modemler üzerinden fax gönderme desteði
 Group:		Applications/Communications
+Group(de):	Applikationen/Kommunikation
 Group(pl):	Aplikacje/Komunikacja
 Requires:	libgr-progs
 Requires:	%{name} = %{version}
@@ -122,6 +124,7 @@ Summary(fr):	Gestionnaire pour les modems vocaux
 Summary(pl):	Program pozwalaj±cy na wykorzystanie mgetty i modemu jako automatycznej sekretarki
 Summary(tr):	Sesli mektup gönderebilen modemlere destek
 Group:		Applications/Communications
+Group(de):	Applikationen/Kommunikation
 Group(pl):	Aplikacje/Komunikacja
 Requires:	%{name} = %{version}
 
@@ -159,6 +162,7 @@ Bu paket sesli mektup uzantýsý olan bazý modemler için destek içerir.
 Summary:	An X Window System fax viewer
 Summary(pl):	Przegl±darka faksów dla X Window System
 Group:		Applications/Communications
+Group(de):	Applikationen/Kommunikation
 Group(pl):	Aplikacje/Komunikacja
 Requires:	%{name} = %{version}
 
@@ -178,7 +182,7 @@ mgetty.
 
 %prep
 %setup -q
-cp policy.h-dist policy.h
+cp -f policy.h-dist policy.h
 
 %patch0 -p0
 %patch1 -p0 
@@ -193,14 +197,14 @@ cp policy.h-dist policy.h
 %patch12 -p1
 
 %build
-%{__make} LDFLAGS="-s"
+%{__make} LDFLAGS="%{rpmldflags}"
 cd voice
-%{__make} LDFLAGS="-s"
+%{__make} LDFLAGS="%{rpmldflags}"
 
 cd ../frontends/X11/viewfax-%{viewfax_version}
 xmkmf
 %{__make} depend
-%{__make} CDEBUGFLAGS="$RPM_OPT_FLAGS" EXTRA_LDOPTIONS="-s"
+%{__make} CDEBUGFLAGS="%{rpmcflags}" EXTRA_LDOPTIONS="%{rpmldflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -250,7 +254,8 @@ texi2html -monolithic doc/mgetty.texi
 
 gzip -9nf \
 	BUGS ChangeLog README.1st THANKS doc/*.txt \
-	frontends/X11/viewfax-%{viewfax_version}/C* frontends/X11/viewfax-%{viewfax_version}/README \
+	frontends/X11/viewfax-%{viewfax_version}/C* \
+	frontends/X11/viewfax-%{viewfax_version}/README \
 	voice/doc/* doc/modems.db
 find samples -type f -exec gzip -9nf {} \;
 
