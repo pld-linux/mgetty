@@ -1,0 +1,223 @@
+diff -urN mgetty-1.1.20.orig/Makefile mgetty-1.1.20/Makefile
+--- mgetty-1.1.20.orig/Makefile	Sun Jan 17 18:23:13 1999
++++ mgetty-1.1.20/Makefile	Sat Apr  3 01:27:17 1999
+@@ -567,31 +567,31 @@
+ #
+ # binaries
+ #
+-	-test -d $(BINDIR)  || ( ./mkidirs $(BINDIR)  ; chmod 755 $(BINDIR)  )
+-	$(INSTALL) -m 755 newslock $(BINDIR)
++	-test -d $(BINDIR)  || ( ./mkidirs $(BINDIR))
++	$(INSTALL) -s newslock $(BINDIR)
+ 
+-	-test -d $(SBINDIR) || ( ./mkidirs $(SBINDIR) ; chmod 755 $(SBINDIR) )
++	-test -d $(SBINDIR) || ( ./mkidirs $(SBINDIR))
+ 	-mv -f $(SBINDIR)/mgetty $(SBINDIR)/mgetty.old
+ 	-mv -f $(SBINDIR)/sendfax $(SBINDIR)/sendfax.old
+-	$(INSTALL) -s -m 700 mgetty $(SBINDIR)
+-	$(INSTALL) -s -m 700 sendfax $(SBINDIR)
++	$(INSTALL) -s mgetty $(SBINDIR)
++	$(INSTALL) -s sendfax $(SBINDIR)
+ #
+ # data files + directories
+ #
+ 	test -d $(LIBDIR)  || \
+-		( ./mkidirs $(LIBDIR) ; chmod 755 $(LIBDIR) )
++		( ./mkidirs $(LIBDIR))
+ 	test -d $(CONFDIR) || \
+-		( ./mkidirs $(CONFDIR); chmod 755 $(CONFDIR))
++		( ./mkidirs $(CONFDIR))
+ 	test -f $(CONFDIR)/login.config || \
+-		$(INSTALL) -o root -m 600 login.config $(CONFDIR)/
++		$(INSTALL) login.config $(CONFDIR)/
+ 	test -f $(CONFDIR)/mgetty.config || \
+-		$(INSTALL) -o root -m 600 mgetty.config $(CONFDIR)/
++		$(INSTALL) mgetty.config $(CONFDIR)/
+ 	test -f $(CONFDIR)/sendfax.config || \
+-		$(INSTALL) -o root -m 644 sendfax.config $(CONFDIR)/
++		$(INSTALL) sendfax.config $(CONFDIR)/
+ 	test -f $(CONFDIR)/dialin.config || \
+-		$(INSTALL) -o root -m 600 dialin.config $(CONFDIR)/
++		$(INSTALL) dialin.config $(CONFDIR)/
+ 	test -f $(CONFDIR)/faxrunq.config || \
+-		$(INSTALL) -o root -m 600 faxrunq.config $(CONFDIR)/
++		$(INSTALL) faxrunq.config $(CONFDIR)/
+ #
+ # test for outdated stuff
+ #
+@@ -606,15 +606,15 @@
+ # fax spool directories
+ #
+ 	test -d $(spool) || \
+-		( mkdir $(spool) ; chmod 755 $(spool) )
++		( mkdir $(spool))
+ 	test -d $(FAX_SPOOL) || \
+-		( mkdir $(FAX_SPOOL) ; chmod 755 $(FAX_SPOOL) )
++		( mkdir $(FAX_SPOOL))
+ 	test -d $(FAX_SPOOL_IN) || \
+-		( mkdir $(FAX_SPOOL_IN) ; chmod 755 $(FAX_SPOOL_IN) )
++		( mkdir $(FAX_SPOOL_IN))
+ 	test -d $(FAX_SPOOL_OUT) || \
+-		( mkdir $(FAX_SPOOL_OUT) ; chmod 1777 $(FAX_SPOOL_OUT) )
++		( mkdir $(FAX_SPOOL_OUT))
+ 	test -d $(FAX_SPOOL_OUT)/locks || \
+-		( mkdir $(FAX_SPOOL_OUT)/locks ; chmod 777 $(FAX_SPOOL_OUT)/locks )
++		( mkdir $(FAX_SPOOL_OUT)/locks)
+ #
+ # g3 tool programs
+ #
+@@ -633,7 +633,7 @@
+ 	if [ ! -z "$(INSTALL_MECHO)" ] ; then \
+ 	    cd compat ; \
+ 	    $(CC) $(CFLAGS) -o mg.echo mg.echo.c && \
+-	    $(INSTALL) -s -m 755 mg.echo $(BINDIR) ; \
++	    $(INSTALL) -s mg.echo $(BINDIR) ; \
+ 	fi
+ 
+ #
+diff -urN mgetty-1.1.20.orig/callback/Makefile mgetty-1.1.20/callback/Makefile
+--- mgetty-1.1.20.orig/callback/Makefile	Thu Oct 30 19:36:24 1997
++++ mgetty-1.1.20/callback/Makefile	Sat Apr  3 01:40:58 1999
+@@ -36,7 +36,7 @@
+ # install programs
+ #
+ install: all
+-	$(INSTALL) -s -m 700 -o root callback $(SBINDIR)
+-	$(INSTALL) -s -m 4711 -o root ct $(BINDIR)
++	$(INSTALL) -s callback $(SBINDIR)
++	$(INSTALL) -s ct $(BINDIR)
+ 
+ # source modules
+diff -urN mgetty-1.1.20.orig/contrib/next-login/Makefile mgetty-1.1.20/contrib/next-login/Makefile
+--- mgetty-1.1.20.orig/contrib/next-login/Makefile	Sun May 26 18:23:06 1996
++++ mgetty-1.1.20/contrib/next-login/Makefile	Sat Apr  3 01:38:52 1999
+@@ -42,7 +42,7 @@
+ 	mkdep -p ${CFLAGS} ${SRCS}
+ 
+ install:
+-	install -s -o root -g bin -m 4755 login ${DESTDIR}/bin/modem-login
++	install -s login ${DESTDIR}/bin/modem-login
+ 
+ lint: ${SRCS}
+ 	lint ${CFLAGS} ${SRCS}
+diff -urN mgetty-1.1.20.orig/doc/Makefile mgetty-1.1.20/doc/Makefile
+--- mgetty-1.1.20.orig/doc/Makefile	Thu Nov 27 21:33:26 1997
++++ mgetty-1.1.20/doc/Makefile	Sat Apr  3 01:36:06 1999
+@@ -67,21 +67,21 @@
+ install: $(MANSRC) mgetty.info
+ 	-mkdir `dirname $(MAN1DIR)` $(MAN1DIR) $(MAN4DIR) $(MAN5DIR) $(MAN8DIR) 2>/dev/null
+ 	for i in $(MAN1PAGES) ; do \
+-		$(INSTALL) -m 644 $$i $(MAN1DIR) ; \
++		$(INSTALL) $$i $(MAN1DIR) ; \
+ 	done
+ 	for i in $(MAN4PAGES) ; do \
+-		$(INSTALL) -m 644 $$i $(MAN4DIR) ; \
++		$(INSTALL) $$i $(MAN4DIR) ; \
+ 	done
+ 	for i in $(MAN5PAGES) ; do \
+-		$(INSTALL) -m 644 $$i $(MAN5DIR) ; \
++		$(INSTALL) $$i $(MAN5DIR) ; \
+ 	done
+ 	for i in $(MAN8PAGES) ; do \
+-		$(INSTALL) -m 644 $$i $(MAN8DIR) ; \
++		$(INSTALL) $$i $(MAN8DIR) ; \
+ 	done
+ 	if [ -f mgetty.info ] ; then\
+ 	    test -d $(INFODIR) || mkdir $(INFODIR) 2>/dev/null ; \
+ 	    for i in mgetty.info* ; do \
+-		$(INSTALL) -m 644 $$i $(INFODIR) ; \
++		$(INSTALL) $$i $(INFODIR) ; \
+ 	    done ; \
+ 	else \
+ 	    echo "mgetty.info not made, skipping" ; \
+diff -urN mgetty-1.1.20.orig/fax/Makefile mgetty-1.1.20/fax/Makefile
+--- mgetty-1.1.20.orig/fax/Makefile	Sat Nov 15 21:15:11 1997
++++ mgetty-1.1.20/fax/Makefile	Sat Apr  3 01:35:03 1999
+@@ -44,17 +44,17 @@
+ #
+ 	-for i in $(FAX_SCRIPTS); do \
+ 		mv -f $(BINDIR)/$$i $(BINDIR)/$$i.old 2>/dev/null ; \
+-		$(INSTALL) -m 755 $$i $(BINDIR) ; \
++		$(INSTALL) $$i $(BINDIR) ; \
+ 	done
+-	chmod 700 $(BINDIR)/faxrunq
+-	$(INSTALL) -m 700 faxrunqd $(SBINDIR)
++# chmod 700 $(BINDIR)/faxrunq
++	$(INSTALL) faxrunqd $(SBINDIR)
+ #
+ # data files
+ #
+-	$(INSTALL) -m 644 cour25.pbm $(LIBDIR)
+-	$(INSTALL) -m 644 cour25n.pbm $(LIBDIR)
++	$(INSTALL) cour25.pbm $(LIBDIR)
++	$(INSTALL) cour25n.pbm $(LIBDIR)
+ 	-test -f $(CONFDIR)/faxheader || \
+-		$(INSTALL) -m 644 faxheader $(CONFDIR)
++		$(INSTALL) faxheader $(CONFDIR)
+ #
+ # /etc/magic
+ #
+diff -urN mgetty-1.1.20.orig/frontends/dialog/Makefile mgetty-1.1.20/frontends/dialog/Makefile
+--- mgetty-1.1.20.orig/frontends/dialog/Makefile	Thu Mar 26 10:05:10 1998
++++ mgetty-1.1.20/frontends/dialog/Makefile	Sat Apr  3 01:31:58 1999
+@@ -34,5 +34,5 @@
+ install: all
+ 	-for i in $(DIALOG_SCRIPTS); do \
+ 		mv -f $(BINDIR)/$$i $(BINDIR)/$$i.old 2>/dev/null ; \
+-		$(INSTALL) -m 775 $$i $(BINDIR) ; \
++		$(INSTALL) $$i $(BINDIR) ; \
+ 	done
+diff -urN mgetty-1.1.20.orig/g3/Makefile mgetty-1.1.20/g3/Makefile
+--- mgetty-1.1.20.orig/g3/Makefile	Mon Feb  3 00:45:58 1997
++++ mgetty-1.1.20/g3/Makefile	Sat Apr  3 01:31:31 1999
+@@ -37,7 +37,7 @@
+ # install programs
+ #
+ 	for f in $(G3_PROGRAMS) ; do \
+-		$(INSTALL) -s -m 755 $$f $(BINDIR) ; \
++		$(INSTALL) -s $$f $(BINDIR) ; \
+ 	done
+ #
+ # make symlink for "g3topbm" (so third-party fax viewers won't fail)
+diff -urN mgetty-1.1.20.orig/tools/Makefile mgetty-1.1.20/tools/Makefile
+--- mgetty-1.1.20.orig/tools/Makefile	Mon Jan  4 22:52:18 1999
++++ mgetty-1.1.20/tools/Makefile	Sat Apr  3 01:30:59 1999
+@@ -50,5 +50,5 @@
+ #
+ 	-for i in $(SCRIPTS); do \
+ 		mv -f $(BINDIR)/$$i $(BINDIR)/$$i.old 2>/dev/null ; \
+-		$(INSTALL) -m 755 $$i $(BINDIR) ; \
++		$(INSTALL) $$i $(BINDIR) ; \
+ 	done
+diff -urN mgetty-1.1.20.orig/voice/Makefile mgetty-1.1.20/voice/Makefile
+--- mgetty-1.1.20.orig/voice/Makefile	Wed Sep  9 23:06:12 1998
++++ mgetty-1.1.20/voice/Makefile	Sat Apr  3 01:29:04 1999
+@@ -82,14 +82,14 @@
+ 	@echo "  Installing the voice extensions"
+ 	@echo "  -------------------------------"
+ 	@echo ""
+-	$(INSTALL) -m 700 vgetty/vgetty $(SBINDIR)
+-	$(INSTALL) -m 755 vm/vm $(BINDIR)
++	$(INSTALL) -s vgetty/vgetty $(SBINDIR)
++	$(INSTALL) -s vm/vm $(BINDIR)
+ 	for i in $(PVFTOOLS); \
+ 	do \
+-	     $(INSTALL) -m 755 pvftools/$$i $(BINDIR); \
++	     $(INSTALL) -s pvftools/$$i $(BINDIR); \
+ 	done
+-	$(INSTALL) -m 644 man/man1/zplay.1 $(MAN1DIR)
+-	$(INSTALL) -m 644 man/man1/pvf.1 $(MAN1DIR)
++	$(INSTALL) man/man1/zplay.1 $(MAN1DIR)
++	$(INSTALL) man/man1/pvf.1 $(MAN1DIR)
+ 	cd $(MAN1DIR); \
+ 	for i in $(PVFTOOLS); \
+ 	do \
+@@ -102,7 +102,7 @@
+ #	chmod $(PHONE_PERMS) $(VOICE_DIR)/incoming
+ #	[ -d $(VOICE_DIR)/messages ] || mkdir $(VOICE_DIR)/messages
+ #	for i in $(SHELLSCRIPTS); do \
+-#		$(INSTALL) -m 755 $$i $(VOICE_DIR) ;\
++#		$(INSTALL) $$i $(VOICE_DIR) ;\
+ #	done
+ #	[ -f $(VOICE_DIR)/.code ] || echo '12345' >$(VOICE_DIR)/.code
+ #	chgrp $(PHONE_GROUP) $(VOICE_DIR)/.code

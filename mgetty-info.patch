@@ -1,0 +1,15 @@
+diff -urN mgetty-1.1.20.orig/doc/mgetty.texi-in mgetty-1.1.20/doc/mgetty.texi-in
+--- mgetty-1.1.20.orig/doc/mgetty.texi-in	Thu Nov 19 21:48:39 1998
++++ mgetty-1.1.20/doc/mgetty.texi-in	Sat Apr  3 23:10:40 1999
+@@ -7,6 +7,11 @@
+ @finalout
+ 
+ @ifinfo
++@dircategory Miscellaneous:
++@direntry
++* mgetty: (mgetty)			Package to handle faxes,
++					voicemail and more.
++@end direntry
+ This is the online documentation for the mgetty + sendfax
+ package.
+ 
