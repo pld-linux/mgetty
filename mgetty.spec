@@ -7,7 +7,7 @@ Summary(pt_BR):	Um substituto melhor do que o getty para modems de dados e fax
 Summary(tr):	Veri ve faks modemleri için yeni ve akýllý bir getty
 Name:		mgetty
 Version:	1.1.30
-Release:	1
+Release:	2
 License:	distributable
 Group:		Applications/Communications
 URL:		http://alpha.greenie.net/mgetty/
@@ -251,7 +251,7 @@ xmkmf
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/{var/spool/voice/{messages,incoming},sbin,etc/logrotate.d} \
-$RPM_BUILD_ROOT%{_prefix}/X11R6/lib/mgetty+sendfax
+$RPM_BUILD_ROOT%{_libdir}/mgetty+sendfax
 
 %{__make} install \
 	prefix=$RPM_BUILD_ROOT%{_prefix} \
@@ -340,9 +340,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/faxrunqd
 %attr(755,root,root) %{_sbindir}/callback
 %dir %{_libdir}/mgetty+sendfax
-%{_libdir}/mgetty+sendfax/cour25.pbm
-%{_libdir}/mgetty+sendfax/cour25n.pbm
-%{_libdir}/mgetty+sendfax/faxq-helper
+%{_prefix}/lib/mgetty+sendfax/cour25.pbm
+%{_prefix}/lib/mgetty+sendfax/cour25n.pbm
+%{_prefix}/lib/mgetty+sendfax/faxq-helper
 %{_mandir}/man1/g32pbm.1*
 %{_mandir}/man1/pbm2g3.1*
 %{_mandir}/man1/g3cat.1*
@@ -396,8 +396,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/pvffilter
 %attr(755,root,root) %{_bindir}/pvfnoise
 
-
-
 %{_mandir}/man1/zplay.1*
 %{_mandir}/man1/pvf.1*
 %{_mandir}/man1/pvfamp.1*
@@ -428,8 +426,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) %config %{_sysconfdir}/mgetty+sendfax/voice.conf
 /etc/logrotate.d/vm
 
-%define _prefix	/usr/X11R6
-%define _mandir %{_prefix}/man
 %files viewfax
 %defattr(644,root,root,755)
 %doc frontends/X11/viewfax-%{viewfax_version}/C* frontends/X11/viewfax-%{viewfax_version}/README
