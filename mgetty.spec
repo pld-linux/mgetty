@@ -5,7 +5,7 @@ Summary(pl):	Zamiennik getty dla modemów i faxmodemów
 Summary(tr):	Veri ve faks modemleri için yeni ve akýllý bir getty
 Name:		mgetty
 Version:	1.1.30
-Release:	0.1
+Release:	0.9
 License:	distributable
 Group:		Applications/Communications
 URL:		http://alpha.greenie.net/mgetty/
@@ -277,7 +277,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir /var/spool/fax
 %dir /var/spool/fax/incoming
 %attr(1777,root,root) %dir /var/spool/fax/outgoing
-%attr(777,root,root) %dir /var/spool/fax/outgoing/locks
+#%attr(777,root,root) %dir /var/spool/fax/outgoing/locks
 
 %attr(755,root,root) %{_bindir}/kvg
 %attr(755,root,root) %{_bindir}/newslock
@@ -372,11 +372,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) %config %{_sysconfdir}/mgetty+sendfax/voice.conf
 /etc/logrotate.d/vm
 
+%define _prefix	/usr/X11R6
+%define _mandir %{_prefix}/man
 %files viewfax
 %defattr(644,root,root,755)
-%define _prefix %{_prefix}/X11R6
-%defattr(644,root,root,755)
-%doc frontends/X11/viewfax-%{viewfax_version}/C* frontends/X11/viewfax-%{viewfax_version}/README.gz
+%doc frontends/X11/viewfax-%{viewfax_version}/C* frontends/X11/viewfax-%{viewfax_version}/README
 %attr(755,root,root) %{_bindir}/viewfax
 %dir %{_libdir}/mgetty+sendfax
 %{_libdir}/mgetty+sendfax/viewfax.tif
