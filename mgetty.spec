@@ -1,12 +1,12 @@
 Summary: 	A getty replacement for use with data and fax modems.
 Summary(pl):	Zamiennik getty dla modemów i faxmodemów.
 Name: 		mgetty
-Version:	1.1.20
-Release:	4
+Version:	1.1.21
+Release:	1
 Group: 		Applications/Communications
 Group(pl):	Aplikacje/Komunikacja
 Copyright:      distributable
-Source:		ftp://ftp.leo.org/pub/comp/os/unix/networking/mgetty/mgetty1.1.20-Jan17.tar.gz
+Source:		ftp://ftp.leo.org/pub/comp/os/unix/networking/mgetty/mgetty1.1.21-Jul24.tar.gz
 Patch0: 	mgetty-config.patch
 Patch1: 	mgetty-makekvg.patch
 Patch2: 	mgetty-policy.patch
@@ -21,7 +21,6 @@ BuildRequires:	tetex
 BuildRequires:	texinfo
 BuildRequires:	groff
 Prereq:		/sbin/install-info
-Requires: 	libgr-progs
 BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
@@ -51,6 +50,7 @@ Summary: 	Provides support for sending faxes over a modem.
 Summary(pl):	Umozliwia wysy³anie faksów przez modem.
 Group:          Applications/Communications
 Group(pl):      Aplikacje/Komunikacja
+Requires:       libgr-progs
 Requires:       %{name} = %{version}
 
 %description sendfax
@@ -207,8 +207,6 @@ fi
 %doc samples doc/*.txt.gz mgetty.html
 %attr(700,root,root) /sbin/mgetty
 %{_mandir}/man8/mgetty.8.gz
-%{_mandir}/man8/callback.8.gz
-%{_mandir}/man8/faxrunqd.8.gz
 %{_mandir}/man4/mgettydefs.4.gz
 %{_infodir}/mgetty.info-2.gz
 %{_infodir}/mgetty.info-3.gz
@@ -237,24 +235,26 @@ fi
 %attr(700,root,root) %{_bindir}/faxrunq
 %attr(755,root,root) %{_bindir}/faxq
 %attr(755,root,root) %{_bindir}/faxrm
-%attr(4711,root,root) %{_bindir}/ct
+%attr(711,root,root) %{_bindir}/ct
 %attr(700,root,root) %{_sbindir}/sendfax
 %attr(700,root,root) %{_sbindir}/faxrunqd
 %attr(700,root,root) %{_sbindir}/callback
 %dir %{_libdir}/mgetty+sendfax
 %{_libdir}/mgetty+sendfax/cour25.pbm
 %{_libdir}/mgetty+sendfax/cour25n.pbm
-%{_mandir}/man1/g32pbm.1*
-%{_mandir}/man1/pbm2g3.1*
-%{_mandir}/man1/g3cat.1*
-%{_mandir}/man1/mgetty_fax.1*
-%{_mandir}/man1/faxspool.1*
-%{_mandir}/man1/faxrunq.1*
-%{_mandir}/man1/faxq.1*
-%{_mandir}/man1/faxrm.1*
-%{_mandir}/man1/coverpg.1*
-%{_mandir}/man5/faxqueue.5*
-%{_mandir}/man8/sendfax.8*
+%{_mandir}/man1/g32pbm.1.gz
+%{_mandir}/man1/pbm2g3.1.gz
+%{_mandir}/man1/g3cat.1.gz
+%{_mandir}/man1/mgetty_fax.1.gz
+%{_mandir}/man1/faxspool.1.gz
+%{_mandir}/man1/faxrunq.1.gz
+%{_mandir}/man1/faxq.1.gz
+%{_mandir}/man1/faxrm.1.gz
+%{_mandir}/man1/coverpg.1.gz
+%{_mandir}/man5/faxqueue.5.gz
+%{_mandir}/man8/sendfax.8.gz
+%{_mandir}/man8/callback.8.gz
+%{_mandir}/man8/faxrunqd.8.gz
 %config /etc/mgetty+sendfax/sendfax.config
 %attr(600,root,root) %config /etc/mgetty+sendfax/faxrunq.config
 %config /etc/mgetty+sendfax/faxheader
@@ -292,30 +292,30 @@ fi
 %attr(755,root,root) %{_bindir}/pvftowav
 %attr(755,root,root) %{_bindir}/wavtopvf
 
-%{_mandir}/man1/zplay.1*
-%{_mandir}/man1/pvf.1*
-%{_mandir}/man1/pvfamp.1*
-%{_mandir}/man1/pvfcut.1*
-%{_mandir}/man1/pvfecho.1*
-%{_mandir}/man1/pvffile.1*
-%{_mandir}/man1/pvffft.1*
-%{_mandir}/man1/pvfmix.1*
-%{_mandir}/man1/pvfreverse.1*
-%{_mandir}/man1/pvfsine.1*
-%{_mandir}/man1/pvfspeed.1*
-%{_mandir}/man1/pvftormd.1*
-%{_mandir}/man1/rmdtopvf.1*
-%{_mandir}/man1/rmdfile.1*
-%{_mandir}/man1/pvftovoc.1*
-%{_mandir}/man1/voctopvf.1*
-%{_mandir}/man1/pvftolin.1*
-%{_mandir}/man1/lintopvf.1*
-%{_mandir}/man1/pvftobasic.1*
-%{_mandir}/man1/basictopvf.1*
-%{_mandir}/man1/pvftoau.1*
-%{_mandir}/man1/autopvf.1*
-%{_mandir}/man1/pvftowav.1*
-%{_mandir}/man1/wavtopvf.1*
+%{_mandir}/man1/zplay.1.gz
+%{_mandir}/man1/pvf.1.gz
+%{_mandir}/man1/pvfamp.1.gz
+%{_mandir}/man1/pvfcut.1.gz
+%{_mandir}/man1/pvfecho.1.gz
+%{_mandir}/man1/pvffile.1.gz
+%{_mandir}/man1/pvffft.1.gz
+%{_mandir}/man1/pvfmix.1.gz
+%{_mandir}/man1/pvfreverse.1.gz
+%{_mandir}/man1/pvfsine.1.gz
+%{_mandir}/man1/pvfspeed.1.gz
+%{_mandir}/man1/pvftormd.1.gz
+%{_mandir}/man1/rmdtopvf.1.gz
+%{_mandir}/man1/rmdfile.1.gz
+%{_mandir}/man1/pvftovoc.1.gz
+%{_mandir}/man1/voctopvf.1.gz
+%{_mandir}/man1/pvftolin.1.gz
+%{_mandir}/man1/lintopvf.1.gz
+%{_mandir}/man1/pvftobasic.1.gz
+%{_mandir}/man1/basictopvf.1.gz
+%{_mandir}/man1/pvftoau.1.gz
+%{_mandir}/man1/autopvf.1.gz
+%{_mandir}/man1/pvftowav.1.gz
+%{_mandir}/man1/wavtopvf.1.gz
 %attr(600,root,root) %config /etc/mgetty+sendfax/voice.conf
 
 %files viewfax
@@ -324,4 +324,4 @@ fi
 %attr(755,root,root) %{_bindir}/viewfax
 %dir %{_libdir}/mgetty+sendfax
 %{_libdir}/mgetty+sendfax/viewfax.tif
-%{_mandir}/man1/viewfax.1x*
+%{_mandir}/man1/viewfax.1x.gz
