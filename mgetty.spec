@@ -8,8 +8,6 @@ Version:	1.1.26
 Release:	7
 License:	distributable
 Group:		Applications/Communications
-Group(de):	Applikationen/Kommunikation
-Group(pl):	Aplikacje/Komunikacja
 URL:		http://www.leo.org/~doering/mgetty/index.html
 Source0:	ftp://ftp.leo.org/pub/comp/os/unix/networking/mgetty/%{name}%{version}-Apr16.tar.gz
 Source1:	%{name}-sendfax.logrotate
@@ -84,8 +82,6 @@ Summary(fr):	Gestion de l'envoi et de la réception de fax via un faxmodem
 Summary(pl):	Umo¿liwia wysy³anie faksów przez modem
 Summary(tr):	1 veya 2 sýnýfý modemler üzerinden fax gönderme desteði
 Group:		Applications/Communications
-Group(de):	Applikationen/Kommunikation
-Group(pl):	Aplikacje/Komunikacja
 Requires:	netpbm-progs
 Requires:	%{name} = %{version}
 
@@ -128,8 +124,6 @@ Summary(fr):	Gestionnaire pour les modems vocaux
 Summary(pl):	Program pozwalaj±cy na wykorzystanie mgetty i modemu jako automatycznej sekretarki
 Summary(tr):	Sesli mektup gönderebilen modemlere destek
 Group:		Applications/Communications
-Group(de):	Applikationen/Kommunikation
-Group(pl):	Aplikacje/Komunikacja
 Requires:	%{name} = %{version}
 
 %description voice
@@ -167,8 +161,6 @@ Summary:	An X Window System fax viewer
 Summary(pl):	Przegl±darka faksów dla X Window System
 Epoch:		1
 Group:		Applications/Communications
-Group(de):	Applikationen/Kommunikation
-Group(pl):	Aplikacje/Komunikacja
 Requires:	%{name} = %{version}
 
 %description viewfax
