@@ -184,13 +184,10 @@ install logrotate.sendfax $RPM_BUILD_ROOT/etc/logrotate.d/sendfax
 # make the html documenatation
 texi2html -monolithic doc/mgetty.texi
 
-
-gzip -9nf $RPM_BUILD_ROOT%{_mandir}/{man1,man4,man5,man8}/* \
-	$RPM_BUILD_ROOT%{_infodir}/* \
+gzip -9nf $RPM_BUILD_ROOT{%{_mandir}/man?/*,{_infodir}/*} \
 	FAQ BUGS ChangeLog README.1st THANKS doc/*.txt \
 	frontends/X11/viewfax-2.4/C* frontends/X11/viewfax-2.4/README \
-	voice/doc/* doc/modems.db
-gzip -9rnf samples/*
+	voice/doc/* doc/modems.db samples/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -199,7 +196,7 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/install-info %{_infodir}/mgetty.info.gz /etc/info-dir
 
 %preun
-if [ "$1" = 0 ]; then
+if [ "$1" = "0" ]; then
 	/sbin/install-info --delete %{_infodir}/mgetty.info.gz /etc/info-dir
 fi
 
@@ -246,17 +243,17 @@ fi
 %dir %{_libdir}/mgetty+sendfax
 %{_libdir}/mgetty+sendfax/cour25.pbm
 %{_libdir}/mgetty+sendfax/cour25n.pbm
-%{_mandir}/man1/g32pbm.1.gz
-%{_mandir}/man1/pbm2g3.1.gz
-%{_mandir}/man1/g3cat.1.gz
-%{_mandir}/man1/mgetty_fax.1.gz
-%{_mandir}/man1/faxspool.1.gz
-%{_mandir}/man1/faxrunq.1.gz
-%{_mandir}/man1/faxq.1.gz
-%{_mandir}/man1/faxrm.1.gz
-%{_mandir}/man1/coverpg.1.gz
-%{_mandir}/man5/faxqueue.5.gz
-%{_mandir}/man8/sendfax.8.gz
+%{_mandir}/man1/g32pbm.1*
+%{_mandir}/man1/pbm2g3.1*
+%{_mandir}/man1/g3cat.1*
+%{_mandir}/man1/mgetty_fax.1*
+%{_mandir}/man1/faxspool.1*
+%{_mandir}/man1/faxrunq.1*
+%{_mandir}/man1/faxq.1*
+%{_mandir}/man1/faxrm.1*
+%{_mandir}/man1/coverpg.1*
+%{_mandir}/man5/faxqueue.5*
+%{_mandir}/man8/sendfax.8*
 %config /etc/mgetty+sendfax/sendfax.config
 %attr(600,root,root) %config /etc/mgetty+sendfax/faxrunq.config
 %config /etc/mgetty+sendfax/faxheader
@@ -294,30 +291,30 @@ fi
 %attr(755,root,root) %{_bindir}/pvftowav
 %attr(755,root,root) %{_bindir}/wavtopvf
 
-%{_mandir}/man1/zplay.1.gz
-%{_mandir}/man1/pvf.1.gz
-%{_mandir}/man1/pvfamp.1.gz
-%{_mandir}/man1/pvfcut.1.gz
-%{_mandir}/man1/pvfecho.1.gz
-%{_mandir}/man1/pvffile.1.gz
-%{_mandir}/man1/pvffft.1.gz
-%{_mandir}/man1/pvfmix.1.gz
-%{_mandir}/man1/pvfreverse.1.gz
-%{_mandir}/man1/pvfsine.1.gz
-%{_mandir}/man1/pvfspeed.1.gz
-%{_mandir}/man1/pvftormd.1.gz
-%{_mandir}/man1/rmdtopvf.1.gz
-%{_mandir}/man1/rmdfile.1.gz
-%{_mandir}/man1/pvftovoc.1.gz
-%{_mandir}/man1/voctopvf.1.gz
-%{_mandir}/man1/pvftolin.1.gz
-%{_mandir}/man1/lintopvf.1.gz
-%{_mandir}/man1/pvftobasic.1.gz
-%{_mandir}/man1/basictopvf.1.gz
-%{_mandir}/man1/pvftoau.1.gz
-%{_mandir}/man1/autopvf.1.gz
-%{_mandir}/man1/pvftowav.1.gz
-%{_mandir}/man1/wavtopvf.1.gz
+%{_mandir}/man1/zplay.1*
+%{_mandir}/man1/pvf.1*
+%{_mandir}/man1/pvfamp.1*
+%{_mandir}/man1/pvfcut.1*
+%{_mandir}/man1/pvfecho.1*
+%{_mandir}/man1/pvffile.1*
+%{_mandir}/man1/pvffft.1*
+%{_mandir}/man1/pvfmix.1*
+%{_mandir}/man1/pvfreverse.1*
+%{_mandir}/man1/pvfsine.1*
+%{_mandir}/man1/pvfspeed.1*
+%{_mandir}/man1/pvftormd.1*
+%{_mandir}/man1/rmdtopvf.1*
+%{_mandir}/man1/rmdfile.1*
+%{_mandir}/man1/pvftovoc.1*
+%{_mandir}/man1/voctopvf.1*
+%{_mandir}/man1/pvftolin.1*
+%{_mandir}/man1/lintopvf.1*
+%{_mandir}/man1/pvftobasic.1*
+%{_mandir}/man1/basictopvf.1*
+%{_mandir}/man1/pvftoau.1*
+%{_mandir}/man1/autopvf.1*
+%{_mandir}/man1/pvftowav.1*
+%{_mandir}/man1/wavtopvf.1*
 %attr(600,root,root) %config /etc/mgetty+sendfax/voice.conf
 
 %files viewfax
@@ -326,7 +323,7 @@ fi
 %attr(755,root,root) %{_bindir}/viewfax
 %dir %{_libdir}/mgetty+sendfax
 %{_libdir}/mgetty+sendfax/viewfax.tif
-%{_mandir}/man1/viewfax.1x.gz
+%{_mandir}/man1/viewfax.1x*
 
 %changelog
 * Fri May 21 1999 Piotr Czerwiñski <pius@pld.org.pl> 
