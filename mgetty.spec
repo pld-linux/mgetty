@@ -1,7 +1,9 @@
 Summary:	A getty replacement for use with data and fax modems
 Summary(de):	Intelligenter Ersatz für Daten- und Faxmodems
+Summary(es):	Un substituto mejor que el getty para módems de datos y fax
 Summary(fr):	Remplacement de getty pour les modems données et fax
 Summary(pl):	Zamiennik getty dla modemów i faxmodemów
+Summary(pt_BR):	Um substituto melhor do que o getty para modems de dados e fax
 Summary(tr):	Veri ve faks modemleri için yeni ve akýllý bir getty
 Name:		mgetty
 Version:	1.1.30
@@ -46,6 +48,12 @@ and your modem, you'll need to install the mgetty-sendfax program. If
 you need a viewer for faxes, you'll also need to install the
 mgetty-viewfax package.
 
+%description -l es
+Este paquete contiene el programa inteligente 'getty' que permite logins a
+través de una línea serial (usadas con un módem por ejemplo). El programa
+permite el uso automático de callback y incluye soporte a FAX (el paquete
+mgetty-sendfax necesita ser instalado para hacer uso total del soporte a FAX).
+
 %description -l de
 Dieses Paket enthält ein intelligentes getty, das das Anmelden über
 eine serielle Leitung, z.B. ein Modem, zuläßt. Es unterstützt
@@ -70,6 +78,12 @@ u¿ywaj±c mgetty, musisz zainstalowaæ pakiet mgetty-sendfax. Je¶li
 potrzebujesz przegl±darki otrzymanych faksów, musisz równie¿
 zainstalowaæ pakiet mgetty-viewfax.
 
+%description -l pt_BR
+Este pacote contém o programa inteligente 'getty' que permite logins através de
+uma linha serial (usadas com um modem por exemplo). O programa permite o uso
+automático de callback e inclui suporte a FAX (o pacote mgetty-sendfax precisa
+ser instalado para fazer uso total de seu suporte a FAX).
+
 %description -l tr
 Bu pakette seri baðlantý üzerinden sisteme giriþe olanak veren, akýllý
 bir getty sürümü bulunur. Otomatik arama ve faks desteði içerir
@@ -79,8 +93,10 @@ mgetty-sendfax paketi gerekir).
 %package sendfax
 Summary:	Provides support for sending faxes over a modem
 Summary(de):	Unterstützung zum Versand und Empfang von Faxnachrichten über ein Faxmodem
+Summary(es):	Soporte a envío y recepción de faxes vía faxmódem
 Summary(fr):	Gestion de l'envoi et de la réception de fax via un faxmodem
 Summary(pl):	Umo¿liwia wysy³anie faksów przez modem
+Summary(pt_BR):	Suporte ao envio e recepção de faxes via faxmodem
 Summary(tr):	1 veya 2 sýnýfý modemler üzerinden fax gönderme desteði
 Group:		Applications/Communications
 Requires:	netpbm-progs
@@ -100,6 +116,10 @@ Dieses Paket schließt Unterstützung für den Versand und Empfang durch
 Modems der FAX Class 2 ein. Ebenfalls enthalten ist der Support für
 eine einfache FAX-Warteschlange.
 
+%description sendfax -l es
+Este paquete incluye soporte al envío y recepción de faxes en fax-módems clase
+2. También incluye soporte sencillo a encadenamiento de faxes.
+
 %description sendfax -l fr
 Ce paquetage contient la gestion des modems FAX Classe 2 pour émettre
 et recevoir des faxs. Il contient aussi une gestion simple des
@@ -114,6 +134,10 @@ Class 2.
 Je¶li chcia³by¶ wysy³aæ faksy przez modem obs³uguj±cy standard Class
 2, musisz zainstalowaæ pakiety: mgetty-sendfax i mgetty.
 
+%description sendfax -l pt_BR
+Este pacote inclui suporte para o envio e recepção de faxes em fax-modems
+classe 2. Também inclui suporte simples a enfileiramento de faxes.
+
 %description sendfax -l tr
 Bu paket 'FAX Class 2' modemleri için faks gönderme ve alma desteði
 içerir. Ayný zamanda basit bir faks kuyruðu desteði vardýr.
@@ -121,8 +145,10 @@ içerir. Ayný zamanda basit bir faks kuyruðu desteði vardýr.
 %package voice
 Summary:	A program for using your modem and mgetty as an answering machine
 Summary(de):	Support für Modems, die Voice-Mail unterstützen
+Summary(es):	Soporte para módems con capacidad de mail por voz
 Summary(fr):	Gestionnaire pour les modems vocaux
 Summary(pl):	Program pozwalaj±cy na wykorzystanie mgetty i modemu jako automatycznej sekretarki
+Summary(pt_BR):	Suporte para modems com capacidade de mail por voz
 Summary(tr):	Sesli mektup gönderebilen modemlere destek
 Group:		Applications/Communications
 Requires:	%{name} = %{version}
@@ -140,6 +166,10 @@ your modem act as an answering machine.
 %description voice -l de
 Dieses Paket unterstützt bestimmte Modems mit Voice-Mail- Erweiterung.
 
+%description voice -l es
+Este paquete incluye soporte a algunos módems que tiene extensiones de voice
+mail.
+
 %description voice -l fr
 Ce paquetage contient les gestionnaires de certains modems disposant
 des extensions voice mail.
@@ -154,12 +184,17 @@ tego rodzaju funkcje.
 Zainstaluj mgetty-voice razem z mgetty, je¶li chcia³by¶ przemieniæ
 swój modem w automatyczn± sekretarkê.
 
+%description voice -l pt_BR
+Este pacote inclui suporte a alguns modems que têm extensões de voice mail.
+
 %description voice -l tr
 Bu paket sesli mektup uzantýsý olan bazý modemler için destek içerir.
 
 %package viewfax
 Summary:	An X Window System fax viewer
+Summary(es):	Visualizador de faxes para X11
 Summary(pl):	Przegl±darka faksów dla X Window System
+Summary(pt_BR):	Visualizador de faxes para X11
 Epoch:		1
 Group:		Applications/Communications
 Requires:	%{name} = %{version}
@@ -171,12 +206,18 @@ Viewfax is capable of zooming in and out on the displayed fax.
 If you're installing the mgetty-viewfax package, you'll also need to
 install mgetty.
 
+%description viewfax -l es
+Este paquete ofrece un visor de faxes para X11 con capacidad de zoom.
+
 %description viewfax -l pl
 Viewfax jest narzêdziem dla X11, którym mo¿esz przegl±daæ otrzymane
 przy pomocy mgetty faksy.
 
 Je¶li instalujesz pakiet mgetty-viewfax musisz równie¿ zainstalowaæ
 mgetty.
+
+%description viewfax -l pt_BR
+Este pacote fornece um visualizador de faxes para X11 com capacidade de zoom.
 
 %prep
 %setup -q
