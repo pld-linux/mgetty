@@ -5,7 +5,7 @@ Summary(pl):	Zamiennik getty dla modemów i faxmodemów.
 Summary(tr):	Veri ve faks modemleri için yeni ve akýllý bir getty
 Name:		mgetty
 Version:	1.1.26
-Release:	4
+Release:	5
 License:	Distributable
 Group:		Applications/Communications
 Group(de):	Applikationen/Kommunikation
@@ -327,7 +327,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files voice
 %defattr(644,root,root,755)
-%doc voice/doc/*
+%doc voice/doc/* voice/scripts
 %dir /var/spool/voice
 %dir /var/spool/voice/incoming
 %dir /var/spool/voice/messages
