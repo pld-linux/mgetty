@@ -23,7 +23,7 @@ BuildRequires:	XFree86-devel
 BuildRequires:	tetex
 BuildRequires:	texinfo
 BuildRequires:	groff
-Prereq:		/sbin/install-info
+Prereq:		/usr/sbin/fix-info-dir
 BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
@@ -243,12 +243,10 @@ find samples -type f -exec gzip -9nf {} \;
 rm -rf $RPM_BUILD_ROOT
 
 %post
-/sbin/install-info %{_infodir}/mgetty.info.gz /etc/info-dir
+/usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %preun
-if [ "$1" = "0" ]; then
-	/sbin/install-info --delete %{_infodir}/mgetty.info.gz /etc/info-dir
-fi
+/usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %files
 %defattr(644,root,root,755)
