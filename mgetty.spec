@@ -5,24 +5,27 @@ Summary(pl):	Zamiennik getty dla modemów i faxmodemów.
 Summary(tr):	Veri ve faks modemleri için yeni ve akýllý bir getty
 Name:		mgetty
 Version:	1.1.26
-Release:	1
-License:	distributable
+Release:	4
+License:	Distributable
 Group:		Applications/Communications
 Group(de):	Applikationen/Kommunikation
 Group(pl):	Aplikacje/Komunikacja
 URL:		http://www.leo.org/~doering/mgetty/index.html
 Source0:	ftp://ftp.leo.org/pub/comp/os/unix/networking/mgetty/%{name}%{version}-Apr16.tar.gz
+Source1:	%{name}-sendfax.logrotate
+Source2:	%{name}-vm.logrotate
+Source3:	%{name}-ttyS.logrotate
 Patch0:		%{name}-config.patch
 Patch1:		%{name}-makekvg.patch
 Patch2:		%{name}-policy.patch
-Patch3:		%{name}-logrotate.patch
-Patch4:		%{name}-imakefile.patch
-Patch5:		%{name}-install.patch
-Patch6:		%{name}-manpages.patch
-Patch7:		%{name}-info.patch
-Patch8:		%{name}-makedoc.patch
-Patch9:		%{name}-faxprint.patch
-Patch12:	%{name}-called-id-patch-current
+Patch3:		%{name}-imakefile.patch
+Patch4:		%{name}-install.patch
+Patch5:		%{name}-manpages.patch
+Patch6:		%{name}-info.patch
+Patch7:		%{name}-makedoc.patch
+Patch8:		%{name}-faxprint.patch
+Patch9:		%{name}-called-id-patch-current
+Patch10:	%{name}-voiceconfig.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	tetex
 BuildRequires:	texinfo
@@ -161,6 +164,7 @@ Bu paket sesli mektup uzantýsý olan bazý modemler için destek içerir.
 %package viewfax
 Summary:	An X Window System fax viewer
 Summary(pl):	Przegl±darka faksów dla X Window System
+Epoch:		1
 Group:		Applications/Communications
 Group(de):	Applikationen/Kommunikation
 Group(pl):	Aplikacje/Komunikacja
@@ -188,13 +192,13 @@ cp -f policy.h-dist policy.h
 %patch1 -p0 
 %patch2 -p1
 %patch3 -p1 
-%patch4 -p1 
+%patch4 -p1
 %patch5 -p1
 %patch6 -p1
-%patch7 -p1
-%patch8 -p0
+%patch7 -p0
+%patch8 -p1
 %patch9 -p1
-%patch12 -p1
+%patch10 -p1
 
 %build
 %{__make} LDFLAGS="%{rpmldflags}"
@@ -208,7 +212,8 @@ xmkmf
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/{var/spool,sbin}
+install -d $RPM_BUILD_ROOT/{var/spool/voice/{messages,incoming},sbin,etc/logrotate.d} \
+	$RPM_BUILD_ROOT/usr/X11R6/lib/mgetty+sendfax
 
 %{__make} install \
 	prefix=$RPM_BUILD_ROOT%{_prefix} \
@@ -227,8 +232,6 @@ mv -f $RPM_BUILD_ROOT%{_mandir}/man1/fax.1 \
 	$RPM_BUILD_ROOT%{_mandir}/man1/mgetty_fax.1
 
 # voice mail extensions
-install -d $RPM_BUILD_ROOT/var/spool/voice/{messages,incoming}
-
 %{__make} install -C voice \
 	prefix=$RPM_BUILD_ROOT%{_prefix} \
 	spool=$RPM_BUILD_ROOT/var/spool \
@@ -239,15 +242,14 @@ install -d $RPM_BUILD_ROOT/var/spool/voice/{messages,incoming}
 mv -f $RPM_BUILD_ROOT%{_sbindir}/vgetty $RPM_BUILD_ROOT/sbin
 install voice/voice.conf-dist $RPM_BUILD_ROOT%{_sysconfdir}/mgetty+sendfax/voice.conf
 
-install -d $RPM_BUILD_ROOT/usr/X11R6/lib/mgetty+sendfax
 %{__make} install -C frontends/X11/viewfax-%{viewfax_version} \
 	DESTDIR=$RPM_BUILD_ROOT
 %{__make} install.man -C frontends/X11/viewfax-%{viewfax_version} \
 	DESTDIR=$RPM_BUILD_ROOT 
 
-install -d $RPM_BUILD_ROOT/etc/logrotate.d
-install logrotate.mgetty $RPM_BUILD_ROOT/etc/logrotate.d/mgetty
-install logrotate.sendfax $RPM_BUILD_ROOT/etc/logrotate.d/sendfax
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/logrotate.d/sendfax
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/logrotate.d/vm
+install %{SOURCE3} $RPM_BUILD_ROOT/etc/logrotate.d/ttyS
 
 # make the html documenatation
 texi2html -monolithic doc/mgetty.texi
@@ -280,8 +282,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) %config %{_sysconfdir}/mgetty+sendfax/login.config
 %attr(600,root,root) %config %{_sysconfdir}/mgetty+sendfax/mgetty.config
 %attr(600,root,root) %config %{_sysconfdir}/mgetty+sendfax/dialin.config
-%config /etc/logrotate.d/mgetty
- 
+/etc/logrotate.d/ttyS
+
 %files sendfax
 %defattr(644,root,root,755)
 %dir /var/spool/fax
@@ -321,7 +323,7 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/mgetty+sendfax/sendfax.config
 %attr(600,root,root) %config %{_sysconfdir}/mgetty+sendfax/faxrunq.config
 %config %{_sysconfdir}/mgetty+sendfax/faxheader
-%config /etc/logrotate.d/sendfax
+/etc/logrotate.d/sendfax
 
 %files voice
 %defattr(644,root,root,755)
@@ -380,6 +382,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/pvftowav.1*
 %{_mandir}/man1/wavtopvf.1*
 %attr(600,root,root) %config %{_sysconfdir}/mgetty+sendfax/voice.conf
+/etc/logrotate.d/vm
 
 %files viewfax
 %define 	_prefix		/usr/X11R6
