@@ -7,8 +7,8 @@ diff -urN mgetty-1.1.20.orig/doc/mgetty.texi-in mgetty-1.1.20/doc/mgetty.texi-in
  @ifinfo
 +@dircategory Miscellaneous:
 +@direntry
-+* mgetty: (mgetty)			Package to handle faxes,
-+					voicemail and more.
++* mgetty: (mgetty).			Package to handle faxes,
++					voicemail and more
 +@end direntry
  This is the online documentation for the mgetty + sendfax
  package.
