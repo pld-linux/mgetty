@@ -1,5 +1,5 @@
 Summary:	A getty replacement for use with data and fax modems
-Summary(de):	Intelligenter Ersatz für Daten- und Faxmodems 
+Summary(de):	Intelligenter Ersatz für Daten- und Faxmodems
 Summary(fr):	Remplacement de getty pour les modems données et fax
 Summary(pl):	Zamiennik getty dla modemów i faxmodemów.
 Summary(tr):	Veri ve faks modemleri için yeni ve akýllý bir getty
@@ -77,7 +77,7 @@ mgetty-sendfax paketi gerekir).
 
 %package sendfax
 Summary:	Provides support for sending faxes over a modem
-Summary(de):	Unterstützung zum Versand und Empfang von Faxnachrichten über ein Faxmodem 
+Summary(de):	Unterstützung zum Versand und Empfang von Faxnachrichten über ein Faxmodem
 Summary(fr):	Gestion de l'envoi et de la réception de fax via un faxmodem
 Summary(pl):	Umo¿liwia wysy³anie faksów przez modem
 Summary(tr):	1 veya 2 sýnýfý modemler üzerinden fax gönderme desteði
@@ -94,17 +94,17 @@ modem.
 If you'd like to send faxes over a Class 2 modem, you'll need to
 install the mgetty-sendfax and the mgetty packages.
 
-%description -l de sendfax
+%description sendfax -l de
 Dieses Paket schließt Unterstützung für den Versand und Empfang durch
 Modems der FAX Class 2 ein. Ebenfalls enthalten ist der Support für
 eine einfache FAX-Warteschlange.
 
-%description -l fr sendfax
+%description sendfax -l fr
 Ce paquetage contient la gestion des modems FAX Classe 2 pour émettre
 et recevoir des faxs. Il contient aussi une gestion simple des
 attentes de fax.
 
-%description -l pl sendfax
+%description sendfax -l pl
 Sendfax jest samodzielnym programem do wysy³ania faksów. Program
 mgetty (zamiennik getty dla przyjmowania po³±czeñ przez linie
 szeregowe) + sendfax pozwol± ci na wysy³anie faksów w standardzie
@@ -113,7 +113,7 @@ Class 2.
 Je¶li chcia³by¶ wysy³aæ faksy przez modem obs³uguj±cy standard Class
 2, musisz zainstalowaæ pakiety: mgetty-sendfax i mgetty.
 
-%description -l tr sendfax
+%description sendfax -l tr
 Bu paket 'FAX Class 2' modemleri için faks gönderme ve alma desteði
 içerir. Ayný zamanda basit bir faks kuyruðu desteði vardýr.
 
@@ -136,14 +136,14 @@ to handle this kind of implementation.
 Install mgetty-voice along with mgetty if you'd like to try having
 your modem act as an answering machine.
 
-%description -l de voice
+%description voice -l de
 Dieses Paket unterstützt bestimmte Modems mit Voice-Mail- Erweiterung.
 
-%description -l fr voice
+%description voice -l fr
 Ce paquetage contient les gestionnaires de certains modems disposant
 des extensions voice mail.
 
-%description -l pl voice
+%description voice -l pl
 Pakiet mgetty-voice zawiera system vgetty, który zezwala mgetty i
 twojemu modemowi na obs³ugê g³osu. Mówi±c krótko, vgetty pozwala
 twojemu modemowi pracowaæ jako automatyczna sekretarka. To, jak dobrze
@@ -153,7 +153,7 @@ tego rodzaju funkcje.
 Zainstaluj mgetty-voice razem z mgetty, je¶li chcia³by¶ przemieniæ
 swój modem w automatyczn± sekretarkê.
 
-%description -l tr voice
+%description voice -l tr
 Bu paket sesli mektup uzantýsý olan bazý modemler için destek içerir.
 
 %package viewfax
@@ -170,7 +170,7 @@ Viewfax is capable of zooming in and out on the displayed fax.
 If you're installing the mgetty-viewfax package, you'll also need to
 install mgetty.
 
-%description -l pl viewfax
+%description viewfax -l pl
 Viewfax jest narzêdziem dla X11, którym mo¿esz przegl±daæ otrzymane
 przy pomocy mgetty faksy.
 
@@ -182,9 +182,9 @@ mgetty.
 cp -f policy.h-dist policy.h
 
 %patch0 -p0
-%patch1 -p0 
+%patch1 -p0
 %patch2 -p1
-%patch3 -p1 
+%patch3 -p1
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
@@ -207,7 +207,7 @@ xmkmf
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/{var/spool/voice/{messages,incoming},sbin,etc/logrotate.d} \
-	$RPM_BUILD_ROOT/usr/X11R6/lib/mgetty+sendfax
+$RPM_BUILD_ROOT%{_prefix}/X11R6/lib/mgetty+sendfax
 
 %{__make} install \
 	prefix=$RPM_BUILD_ROOT%{_prefix} \
@@ -239,7 +239,7 @@ install voice/voice.conf-dist $RPM_BUILD_ROOT%{_sysconfdir}/mgetty+sendfax/voice
 %{__make} install -C frontends/X11/viewfax-%{viewfax_version} \
 	DESTDIR=$RPM_BUILD_ROOT
 %{__make} install.man -C frontends/X11/viewfax-%{viewfax_version} \
-	DESTDIR=$RPM_BUILD_ROOT 
+	DESTDIR=$RPM_BUILD_ROOT
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/logrotate.d/sendfax
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/logrotate.d/vm
@@ -379,8 +379,9 @@ rm -rf $RPM_BUILD_ROOT
 /etc/logrotate.d/vm
 
 %files viewfax
-%define 	_prefix		/usr/X11R6
-%define         _mandir         %{_prefix}/man
+%defattr(644,root,root,755)
+%define _prefix %{_prefix}/X11R6
+%define         _mandir         %{_mandir}
 %defattr(644,root,root,755)
 %doc frontends/X11/viewfax-%{viewfax_version}/C* frontends/X11/viewfax-%{viewfax_version}/README.gz
 %attr(755,root,root) %{_bindir}/viewfax
