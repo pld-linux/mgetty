@@ -2,7 +2,7 @@ Summary: 	A getty replacement for use with data and fax modems.
 Summary(pl):	Zamiennik getty dla modemów i faxmodemów.
 Name: 		mgetty
 Version:	1.1.20
-Release:	3
+Release:	4
 Group: 		Applications/Communications
 Group(pl):	Aplikacje/Komunikacja
 Copyright:      distributable
@@ -10,13 +10,12 @@ Source:		ftp://ftp.leo.org/pub/comp/os/unix/networking/mgetty/mgetty1.1.20-Jan17
 Patch0: 	mgetty-config.patch
 Patch1: 	mgetty-makekvg.patch
 Patch2: 	mgetty-policy.patch
-Patch3: 	mgetty-echo.patch
-Patch4: 	mgetty-logrotate.patch
-Patch5: 	mgetty-imakefile.patch
-Patch6: 	mgetty-xref.patch
-Patch7: 	mgetty-install.patch
-Patch8:		mgetty-manpages.patch
-Patch9:		mgetty-info.patch
+Patch3: 	mgetty-logrotate.patch
+Patch4: 	mgetty-imakefile.patch
+Patch5: 	mgetty-install.patch
+Patch6:		mgetty-manpages.patch
+Patch7:		mgetty-info.patch
+Patch8:		mgetty-makedoc.patch
 BuildPrereq:	XFree86-devel
 BuildPrereq:	tetex
 BuildPrereq:	texinfo
@@ -120,16 +119,15 @@ Je¶li instalujesz pakiet mgetty-viewfax musisz równie¿ zainstalowaæ mgetty.
 %setup -q
 cp policy.h-dist policy.h
 
-%patch0 -p1 
-%patch1 -p1 
+%patch0 -p0
+%patch1 -p0 
 %patch2 -p1
 %patch3 -p1 
 %patch4 -p1 
 %patch5 -p1
 %patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
+%patch7 -p0
+%patch8 -p0
 
 %build
 make "RPM_OPT_FLAGS=$RPM_OPT_FLAGS"
@@ -145,8 +143,12 @@ make CDEBUGFLAGS="$RPM_OPT_FLAGS"
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/{var/spool,sbin}
 
-make prefix=$RPM_BUILD_ROOT/usr spool=$RPM_BUILD_ROOT/var/spool \
-	CONFDIR=$RPM_BUILD_ROOT/etc/mgetty+sendfax install
+make install \
+	prefix=$RPM_BUILD_ROOT%{_prefix} \
+	spool=$RPM_BUILD_ROOT/var/spool \
+	MANDIR=$RPM_BUILD_ROOT%{_mandir} \
+	INFODIR=$RPM_BUILD_ROOT%{_infodir} \
+	CONFDIR=$RPM_BUILD_ROOT/etc/mgetty+sendfax
 
 install -s callback/callback $RPM_BUILD_ROOT%{_sbindir}
 install -s callback/ct $RPM_BUILD_ROOT%{_bindir}
@@ -154,19 +156,26 @@ install -s callback/ct $RPM_BUILD_ROOT%{_bindir}
 mv -f $RPM_BUILD_ROOT%{_sbindir}/mgetty $RPM_BUILD_ROOT/sbin
 
 # this conflicts with efax
-mv -f $RPM_BUILD_ROOT%{_mandir}/man1/fax.1 $RPM_BUILD_ROOT/usr/man/man1/mgetty_fax.1
+mv -f $RPM_BUILD_ROOT%{_mandir}/man1/fax.1 \
+	$RPM_BUILD_ROOT%{_mandir}/man1/mgetty_fax.1
 
 # voice mail extensions
 install -d $RPM_BUILD_ROOT/var/spool/voice/{messages,incoming}
 
-make prefix=$RPM_BUILD_ROOT/usr spool=$RPM_BUILD_ROOT/var/spool \
-	CONFDIR=$RPM_BUILD_ROOT/etc/mgetty+sendfax install -C voice
+make install -C voice \
+	prefix=$RPM_BUILD_ROOT%{_prefix} \
+	spool=$RPM_BUILD_ROOT/var/spool \
+        MANDIR=$RPM_BUILD_ROOT%{_mandir} \
+        INFODIR=$RPM_BUILD_ROOT%{_infodir} \
+	CONFDIR=$RPM_BUILD_ROOT/etc/mgetty+sendfax
 
 mv -f $RPM_BUILD_ROOT%{_sbindir}/vgetty $RPM_BUILD_ROOT/sbin
 install voice/voice.conf-dist $RPM_BUILD_ROOT/etc/mgetty+sendfax/voice.conf
 
-make DESTDIR=$RPM_BUILD_ROOT install -C frontends/X11/viewfax-2.4
-make DESTDIR=$RPM_BUILD_ROOT install.man -C frontends/X11/viewfax-2.4
+make install -C frontends/X11/viewfax-2.4 \
+	DESTDIR=$RPM_BUILD_ROOT
+make install.man -C frontends/X11/viewfax-2.4 \
+	DESTDIR=$RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT/etc/logrotate.d
 install logrotate.mgetty $RPM_BUILD_ROOT/etc/logrotate.d/mgetty
@@ -213,7 +222,7 @@ fi
 %attr(600,root,root) %config /etc/mgetty+sendfax/mgetty.config
 %attr(600,root,root) %config /etc/mgetty+sendfax/dialin.config
 %config /etc/logrotate.d/mgetty
-
+ 
 %files sendfax
 %defattr(644,root,root,755)
 %dir /var/spool/fax
@@ -320,76 +329,7 @@ fi
 %{_mandir}/man1/viewfax.1x.gz
 
 %changelog
-* Wed Apr 21 1999 Piotr Czerwiñski <pius@pld.org.pl>
-  [1.1.20-3]
-- removed html file from gzipping,
-- recompiled on rpm 3.
-
-* Sun Apr  4 1999 Piotr Czerwiñski <pius@pld.org.pl>
-  [1.1.20-2]
-- removed mgetty-strip.patch,
-- changed install procedure to allow building from non-root account
-  (mgetty-install.patch),
-- removed "strip $RPM_BUILD_ROOT%{_bindir}/*" in %install (binary files 
-  are already striped during installation and we don't want to strip 
-  shell scripts, do we?),
-- removed "find samples -type f -exec chmod 644 {} \;" in %install
-  (permissions are set in %files now),
-- added full %defattr description and %attr macros in %files,
-- simplifications in %install,
-- added gzipping documentation and man pages,
-- added -f (and -r) to gzip parameters,
-- fixed creating man pages (mgetty-manpages.patch),
-- added info entry (mgetty-info.patch),
-- standarized {un}registering info pages,
-- added pl translation,
-- changed Buildoot to /tmp/%%{name}-%%{version}-root,
-- added BuildPrereq: tetex, texinfo, groff (needed to build manuals 
-  and documentation),
-- cosmetic changes for common l&f.
-
-* Thu Mar 18 1999 Cristian Gafton <gafton@redhat.com>
-- version 1.1.20
-- cleaned the spec file of subshells
-- updated spec file
-
-* Wed Jan 06 1999 Cristian Gafton <gafton@redhat.com>
-- rebuild for glibc 2.1
-
-* Sat Aug 22 1998 Jos Vos <jos@xos.nl>
-- Use a patch for creating policy.h using policy.h-dist.
-- Add viewfax subpackage (X11 fax viewing program).
-- Add logrotate config files for mgetty and sendfax log files.
-- Properly define ECHO in Makefile for use with bash.
-- Add optional use of dialin.config (for modems supporting this).
-- Change default notification address to "root" (was "faxadmin").
-- Change log file names according to better defaults.
-- Change default notify program to /etc/mgetty+sendfax/new_fax (was
-  /usr/local/bin/new_fax).
-
-* Fri Aug 21 1998 Jeff Johnson <jbj@redhat.com>
-- add faxrunqd man page (problem #850)
-- add missing pbm2g3 (and man page); remove unnecessary "rm -f pbmtog3"
-- delete redundant ( cd tools; make ... )
-
-* Fri Apr 24 1998 Prospector System <bugs@redhat.com>
-- translations modified for de, fr, tr
-
-* Fri Apr 10 1998 Cristian Gafton <gafton@redhat.com>
-- updated to 1.1.14
-- AutoPPP patch
- 
-* Thu Dec 18 1997 Mike Wangsmo <wanger@redhat.com>
-- added more of the documentation files to the rpm
-
-* Wed Oct 29 1997 Otto Hammersmith <otto@redhat.com>
-- added install-info support
-
-* Tue Oct 21 1997 Otto Hammersmith <otto@redhat.com>
-- updated version
-
-* Wed Oct 15 1997 Erik Troan <ewt@redhat.com>
-- now requires libgr-progs instead of netpbm
-
-* Mon Aug 25 1997 Erik Troan <ewt@redhat.com>
-- built against glibc
+* Fri May 21 1999 Piotr Czerwiñski <pius@pld.org.pl> 
+  [1.1.20-4]
+- package is FHS 2.0 compliant,
+- spec file based on RH version and rewritten for PLD use.
