@@ -5,7 +5,7 @@ Summary(pl):	Zamiennik getty dla modemów i faxmodemów.
 Summary(tr):	Veri ve faks modemleri için yeni ve akýllý bir getty
 Name:		mgetty
 Version:	1.1.26
-Release:	5
+Release:	6
 License:	Distributable
 Group:		Applications/Communications
 Group(de):	Applikationen/Kommunikation
@@ -26,6 +26,7 @@ Patch7:		%{name}-makedoc.patch
 Patch8:		%{name}-faxprint.patch
 Patch9:		%{name}-called-id-patch-current
 Patch10:	%{name}-voiceconfig.patch
+Patch11:	%{name}-issue.patch
 BuildRequires:	XFree86-devel
 BuildRequires:	tetex
 BuildRequires:	texinfo
@@ -199,6 +200,7 @@ cp -f policy.h-dist policy.h
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
+%patch11 -p1
 
 %build
 %{__make} LDFLAGS="%{rpmldflags}"
