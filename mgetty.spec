@@ -10,6 +10,7 @@ License:	distributable
 Group:		Applications/Communications
 URL:		http://alpha.greenie.net/mgetty/
 Source0:	ftp://alpha.greenie.net/pub/mgetty/source/1.1/%{name}%{version}-Dec16.tar.gz
+# Source0-md5:	4b80c418bc58add3e40de3be0ac6c02a
 Source1:	%{name}-sendfax.logrotate
 Source2:	%{name}-vm.logrotate
 Source3:	%{name}-ttyS.logrotate
