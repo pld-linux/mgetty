@@ -7,7 +7,7 @@ Summary(pt_BR):	Um substituto melhor do que o getty para modems de dados e fax
 Summary(tr):	Veri ve faks modemleri için yeni ve akýllý bir getty
 Name:		mgetty
 Version:	1.1.31
-Release:	1
+Release:	0.1
 License:	distributable
 Group:		Applications/Communications
 Source0:	ftp://alpha.greenie.net/pub/mgetty/source/1.1/%{name}%{version}-Jul24.tar.gz
