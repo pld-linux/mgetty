@@ -27,7 +27,7 @@
  
  /* Default log error level threshold. Possible error levels are
   * L_FATAL, L_ERROR, L_WARN, L_AUDIT, L_MESG, L_NOISE, L_JUNK (see mgetty.h)
-@@ -150,7 +150,7 @@
+@@ -154,15 +154,20 @@
   * mgetty will use the facility "LOG_AUTH", and the priorities
   * LOG_NOTICE, LOG_ERR and LOG_ALERT, respectively.
   */
@@ -36,6 +36,19 @@
  
  /* Syslog facility
   *
+  * This is the facility mgetty uses for logging. Ususally, this will be
+  * LOG_AUTH, but on some systems, this may not exist, try LOG_DAEMON
+  * instead (or look into the syslog manpage for available options)
++ * Note that LOG_AUTH is deprecated where LOG_AUTHPRIV is defined.
+  */
++#ifdef LOG_AUTHPRIV
++#define SYSLOG_FC LOG_AUTHPRIV
++#else
+ #define SYSLOG_FC LOG_AUTH
++#endif
+ 
+ /* login stuff */
+ 
 @@ -172,7 +172,7 @@
   * current date and time, respectively.
   * override with "-p <prompt>" switch
@@ -45,6 +58,26 @@
  
  /* On SVR4, maybe on other systems too, you can cause the 'login' program
   * to prompt with the same string as mgetty did, instead of the standard
+@@ -246,7 +252,7 @@
+ 
+ /* if your system isn't listed above, change that line here */
+ #ifndef LOCK
+-#define LOCK "/usr/spool/uucp/LCK..%s"
++#define LOCK "/var/spool/uucp/LCK..%s"
+ #endif
+   
+ /* Set this to "1" if your system uses binary lock files (i.e., the pid
+@@ -525,8 +531,9 @@
+  * (with or without leading /dev/)
+  * If you don't adapt this for your needs, sendfax won't run (you can
+  * set it from the sendfax.config file, though)!
++ * We have no way of knowing.  Punt.
+  */
+-#define FAX_MODEM_TTYS	"tty4c:tty4d"
++#define FAX_MODEM_TTYS	"modem"
+ 
+ /* Xon or not?
+  *
 @@ -582,14 +582,14 @@
  #endif
  
@@ -71,3 +104,18 @@
  
  /* default minimum space required on spooling partition for receiving a FAX
   * (in KILObytes)
+--- mgetty-1.1.26/voice/include/paths.h.policy	Mon Apr 16 10:53:07 2001
++++ mgetty-1.1.26/voice/include/paths.h	Mon Apr 16 10:53:34 2001
+@@ -16,10 +16,10 @@
+ 
+ /*
+  * Filename of the logfile for vgetty. The "%s" will be replaced by
+- * the device name.
++ * the device name.  We match the pattern used by mgetty for the name.
+  */
+ 
+-#define VGETTY_LOG_PATH "/var/log/vgetty.%s"
++#define VGETTY_LOG_PATH "/var/log/vgetty.log.%s"
+ 
+ /*
+  * Filename of the logfile for vm.
