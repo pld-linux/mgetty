@@ -47,7 +47,7 @@ otrzymanych faksów, musisz równie¿ zainstalowaæ pakiet mgetty-viewfax.
 
 %package sendfax
 Summary: 	Provides support for sending faxes over a modem.
-Summary(pl):	Umozliwia wysy³anie faksów przez modem.
+Summary(pl):	Umo¿liwia wysy³anie faksów przez modem.
 Group:          Applications/Communications
 Group(pl):      Aplikacje/Komunikacja
 Requires:       libgr-progs
