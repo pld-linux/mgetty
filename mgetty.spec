@@ -424,7 +424,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/pvffilter.1*
 %{_mandir}/man1/pvfnoise.1*
 %{_mandir}/man8/vgetty.8*
-%attr(600,root,root) %config(noreplace) %verify(nod md5 mtime size) %{_sysconfdir}/mgetty+sendfax/voice.conf
+%attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/mgetty+sendfax/voice.conf
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/vm
 
 %files viewfax
