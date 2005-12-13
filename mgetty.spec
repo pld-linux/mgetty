@@ -52,10 +52,11 @@ you need a viewer for faxes, you'll also need to install the
 mgetty-viewfax package.
 
 %description -l es
-Este paquete contiene el programa inteligente 'getty' que permite logins a
-través de una línea serial (usadas con un módem por ejemplo). El programa
-permite el uso automático de callback y incluye soporte a FAX (el paquete
-mgetty-sendfax necesita ser instalado para hacer uso total del soporte a FAX).
+Este paquete contiene el programa inteligente 'getty' que permite
+logins a través de una línea serial (usadas con un módem por ejemplo).
+El programa permite el uso automático de callback y incluye soporte a
+FAX (el paquete mgetty-sendfax necesita ser instalado para hacer uso
+total del soporte a FAX).
 
 %description -l de
 Dieses Paket enthält ein intelligentes getty, das das Anmelden über
@@ -82,10 +83,11 @@ potrzebujesz przegl±darki otrzymanych faksów, musisz równie¿
 zainstalowaæ pakiet mgetty-viewfax.
 
 %description -l pt_BR
-Este pacote contém o programa inteligente 'getty' que permite logins através de
-uma linha serial (usadas com um modem por exemplo). O programa permite o uso
-automático de callback e inclui suporte a FAX (o pacote mgetty-sendfax precisa
-ser instalado para fazer uso total de seu suporte a FAX).
+Este pacote contém o programa inteligente 'getty' que permite logins
+através de uma linha serial (usadas com um modem por exemplo). O
+programa permite o uso automático de callback e inclui suporte a FAX
+(o pacote mgetty-sendfax precisa ser instalado para fazer uso total de
+seu suporte a FAX).
 
 %description -l tr
 Bu pakette seri baðlantý üzerinden sisteme giriþe olanak veren, akýllý
@@ -120,8 +122,9 @@ Modems der FAX Class 2 ein. Ebenfalls enthalten ist der Support für
 eine einfache FAX-Warteschlange.
 
 %description sendfax -l es
-Este paquete incluye soporte al envío y recepción de faxes en fax-módems clase
-2. También incluye soporte sencillo a encadenamiento de faxes.
+Este paquete incluye soporte al envío y recepción de faxes en
+fax-módems clase 2. También incluye soporte sencillo a encadenamiento
+de faxes.
 
 %description sendfax -l fr
 Ce paquetage contient la gestion des modems FAX Classe 2 pour émettre
@@ -131,15 +134,16 @@ attentes de fax.
 %description sendfax -l pl
 Sendfax jest samodzielnym programem do wysy³ania faksów. Program
 mgetty (zamiennik getty dla przyjmowania po³±czeñ przez linie
-szeregowe) + sendfax pozwol± na wysy³anie faksów w standardzie
-Class 2.
+szeregowe) + sendfax pozwol± na wysy³anie faksów w standardzie Class
+2.
 
 Je¶li chcemy wysy³aæ faksy przez modem obs³uguj±cy standard Class 2,
 musimy zainstalowaæ pakiety: mgetty-sendfax i mgetty.
 
 %description sendfax -l pt_BR
-Este pacote inclui suporte para o envio e recepção de faxes em fax-modems
-classe 2. Também inclui suporte simples a enfileiramento de faxes.
+Este pacote inclui suporte para o envio e recepção de faxes em
+fax-modems classe 2. Também inclui suporte simples a enfileiramento de
+faxes.
 
 %description sendfax -l tr
 Bu paket 'FAX Class 2' modemleri için faks gönderme ve alma desteði
@@ -170,8 +174,8 @@ your modem act as an answering machine.
 Dieses Paket unterstützt bestimmte Modems mit Voice-Mail- Erweiterung.
 
 %description voice -l es
-Este paquete incluye soporte a algunos módems que tiene extensiones de voice
-mail.
+Este paquete incluye soporte a algunos módems que tiene extensiones de
+voice mail.
 
 %description voice -l fr
 Ce paquetage contient les gestionnaires de certains modems disposant
@@ -188,7 +192,8 @@ Nale¿y zainstalowaæ mgetty-voice razem z mgetty, je¶li chcemy
 przemieniæ swój modem w automatyczn± sekretarkê.
 
 %description voice -l pt_BR
-Este pacote inclui suporte a alguns modems que têm extensões de voice mail.
+Este pacote inclui suporte a alguns modems que têm extensões de voice
+mail.
 
 %description voice -l tr
 Bu paket sesli mektup uzantýsý olan bazý modemler için destek içerir.
