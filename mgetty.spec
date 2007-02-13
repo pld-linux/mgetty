@@ -1,12 +1,12 @@
 # TODO: need update patch11
 
 Summary:	A getty replacement for use with data and fax modems
-Summary(de.UTF-8):   Intelligenter Ersatz für Daten- und Faxmodems
-Summary(es.UTF-8):   Un substituto mejor que el getty para módems de datos y fax
-Summary(fr.UTF-8):   Remplacement de getty pour les modems données et fax
-Summary(pl.UTF-8):   Zamiennik getty dla modemów i faksmodemów
-Summary(pt_BR.UTF-8):   Um substituto melhor do que o getty para modems de dados e fax
-Summary(tr.UTF-8):   Veri ve faks modemleri için yeni ve akıllı bir getty
+Summary(de.UTF-8):	Intelligenter Ersatz für Daten- und Faxmodems
+Summary(es.UTF-8):	Un substituto mejor que el getty para módems de datos y fax
+Summary(fr.UTF-8):	Remplacement de getty pour les modems données et fax
+Summary(pl.UTF-8):	Zamiennik getty dla modemów i faksmodemów
+Summary(pt_BR.UTF-8):	Um substituto melhor do que o getty para modems de dados e fax
+Summary(tr.UTF-8):	Veri ve faks modemleri için yeni ve akıllı bir getty
 Name:		mgetty
 Version:	1.1.31
 Release:	0.9
@@ -97,12 +97,12 @@ mgetty-sendfax paketi gerekir).
 
 %package sendfax
 Summary:	Provides support for sending faxes over a modem
-Summary(de.UTF-8):   Unterstützung zum Versand und Empfang von Faxnachrichten über ein Faxmodem
-Summary(es.UTF-8):   Soporte a envío y recepción de faxes vía faxmódem
-Summary(fr.UTF-8):   Gestion de l'envoi et de la réception de fax via un faxmodem
-Summary(pl.UTF-8):   Umożliwia wysyłanie faksów przez modem
-Summary(pt_BR.UTF-8):   Suporte ao envio e recepção de faxes via faxmodem
-Summary(tr.UTF-8):   1 veya 2 sınıfı modemler üzerinden fax gönderme desteği
+Summary(de.UTF-8):	Unterstützung zum Versand und Empfang von Faxnachrichten über ein Faxmodem
+Summary(es.UTF-8):	Soporte a envío y recepción de faxes vía faxmódem
+Summary(fr.UTF-8):	Gestion de l'envoi et de la réception de fax via un faxmodem
+Summary(pl.UTF-8):	Umożliwia wysyłanie faksów przez modem
+Summary(pt_BR.UTF-8):	Suporte ao envio e recepção de faxes via faxmodem
+Summary(tr.UTF-8):	1 veya 2 sınıfı modemler üzerinden fax gönderme desteği
 Group:		Applications/Communications
 Requires:	%{name} = %{version}-%{release}
 Requires:	netpbm-progs
@@ -151,12 +151,12 @@ içerir. Aynı zamanda basit bir faks kuyruğu desteği vardır.
 
 %package voice
 Summary:	A program for using your modem and mgetty as an answering machine
-Summary(de.UTF-8):   Support für Modems, die Voice-Mail unterstützen
-Summary(es.UTF-8):   Soporte para módems con capacidad de mail por voz
-Summary(fr.UTF-8):   Gestionnaire pour les modems vocaux
-Summary(pl.UTF-8):   Program pozwalający na wykorzystanie mgetty i modemu jako automatycznej sekretarki
-Summary(pt_BR.UTF-8):   Suporte para modems com capacidade de mail por voz
-Summary(tr.UTF-8):   Sesli mektup gönderebilen modemlere destek
+Summary(de.UTF-8):	Support für Modems, die Voice-Mail unterstützen
+Summary(es.UTF-8):	Soporte para módems con capacidad de mail por voz
+Summary(fr.UTF-8):	Gestionnaire pour les modems vocaux
+Summary(pl.UTF-8):	Program pozwalający na wykorzystanie mgetty i modemu jako automatycznej sekretarki
+Summary(pt_BR.UTF-8):	Suporte para modems com capacidade de mail por voz
+Summary(tr.UTF-8):	Sesli mektup gönderebilen modemlere destek
 Group:		Applications/Communications
 Requires:	%{name} = %{version}-%{release}
 
@@ -200,9 +200,9 @@ Bu paket sesli mektup uzantısı olan bazı modemler için destek içerir.
 
 %package viewfax
 Summary:	An X Window System fax viewer
-Summary(es.UTF-8):   Visualizador de faxes para X11
-Summary(pl.UTF-8):   Przeglądarka faksów dla X Window System
-Summary(pt_BR.UTF-8):   Visualizador de faxes para X11
+Summary(es.UTF-8):	Visualizador de faxes para X11
+Summary(pl.UTF-8):	Przeglądarka faksów dla X Window System
+Summary(pt_BR.UTF-8):	Visualizador de faxes para X11
 Epoch:		1
 Group:		Applications/Communications
 Requires:	%{name} = %{version}-%{release}
