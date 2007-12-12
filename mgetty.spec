@@ -1,5 +1,5 @@
-# TODO: need update patch11
 
+%define		ver_date	Jun15
 Summary:	A getty replacement for use with data and fax modems
 Summary(de.UTF-8):	Intelligenter Ersatz für Daten- und Faxmodems
 Summary(es.UTF-8):	Un substituto mejor que el getty para módems de datos y fax
@@ -8,12 +8,12 @@ Summary(pl.UTF-8):	Zamiennik getty dla modemów i faksmodemów
 Summary(pt_BR.UTF-8):	Um substituto melhor do que o getty para modems de dados e fax
 Summary(tr.UTF-8):	Veri ve faks modemleri için yeni ve akıllı bir getty
 Name:		mgetty
-Version:	1.1.31
-Release:	0.9
+Version:	1.1.36
+Release:	0.2
 License:	distributable
 Group:		Applications/Communications
-Source0:	ftp://alpha.greenie.net/pub/mgetty/source/1.1/%{name}%{version}-Jul24.tar.gz
-# Source0-md5:	3462a0acbdb2e7165540ef95097d49fb
+Source0:	ftp://alpha.greenie.net/pub/mgetty/source/1.1/%{name}%{version}-%{ver_date}.tar.gz
+# Source0-md5:	0320e98c6b86bcca48fc5f355b94ead4
 Source1:	%{name}-sendfax.logrotate
 Source2:	%{name}-vm.logrotate
 Source3:	%{name}-ttyS.logrotate
@@ -23,18 +23,20 @@ Patch2:		%{name}-policy.patch
 Patch3:		%{name}-imakefile.patch
 Patch4:		%{name}-install.patch
 Patch5:		%{name}-manpages.patch
-Patch6:		%{name}-info.patch
+Patch6:		%{name}-issue-doc.patch
 Patch7:		%{name}-makedoc.patch
-Patch8:		%{name}-faxprint.patch
 Patch9:		%{name}-called-id-patch-current
 Patch10:	%{name}-voiceconfig.patch
 Patch11:	%{name}-issue.patch
 Patch12:	%{name}-force_detect.patch
 URL:		http://alpha.greenie.net/mgetty/
-BuildRequires:	XFree86-devel
-BuildRequires:	groff
 BuildRequires:	tetex
 BuildRequires:	texinfo
+BuildRequires:	xorg-cf-files
+BuildRequires:	xorg-lib-libX11-devel
+BuildRequires:	xorg-lib-libXext-devel
+BuildRequires:	xorg-util-gccmakedep
+BuildRequires:	xorg-util-imake
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		viewfax_version		2.5
@@ -234,10 +236,9 @@ cp -f policy.h-dist policy.h
 %patch5 -p1
 %patch6 -p1
 %patch7 -p0
-%patch8 -p1
 %patch9 -p1
 %patch10 -p1
-#%patch11 -p1
+%patch11 -p1
 %patch12 -p1
 
 %build
@@ -247,7 +248,7 @@ cd voice
 %{__make} \
 	LDFLAGS="%{rpmldflags}"
 
-cd ../frontends/X11/viewfax-%{viewfax_version}
+cd ../frontends/X11/viewfax
 xmkmf
 %{__make} depend
 %{__make} \
@@ -286,9 +287,9 @@ mv -f $RPM_BUILD_ROOT%{_mandir}/man1/fax.1 \
 mv -f $RPM_BUILD_ROOT%{_sbindir}/vgetty $RPM_BUILD_ROOT/sbin
 install voice/voice.conf-dist $RPM_BUILD_ROOT%{_sysconfdir}/mgetty+sendfax/voice.conf
 
-%{__make} install -C frontends/X11/viewfax-%{viewfax_version} \
+%{__make} install -C frontends/X11/viewfax \
 	DESTDIR=$RPM_BUILD_ROOT
-%{__make} install.man -C frontends/X11/viewfax-%{viewfax_version} \
+%{__make} install.man -C frontends/X11/viewfax \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/logrotate.d/sendfax
@@ -336,7 +337,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/newslock
 %attr(755,root,root) %{_bindir}/g3cat
 %attr(755,root,root) %{_bindir}/g32pbm
+%attr(755,root,root) %{_bindir}/g3topbm
 %attr(755,root,root) %{_bindir}/pbm2g3
+%attr(755,root,root) %{_bindir}/sff2g3
 %attr(755,root,root) %{_bindir}/faxspool
 %attr(700,root,root) %{_bindir}/faxrunq
 %attr(755,root,root) %{_bindir}/faxq
@@ -351,6 +354,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_prefix}/lib/mgetty+sendfax/faxq-helper
 %{_mandir}/man1/g32pbm.1*
 %{_mandir}/man1/pbm2g3.1*
+%{_mandir}/man1/sff2g3.1*
 %{_mandir}/man1/g3cat.1*
 %{_mandir}/man1/mgetty_fax.1*
 %{_mandir}/man1/faxspool.1*
@@ -362,6 +366,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/sendfax.8*
 %{_mandir}/man8/callback.8*
 %{_mandir}/man8/faxrunqd.8*
+%{_mandir}/man8/faxq-helper.8*
 %config %{_sysconfdir}/mgetty+sendfax/sendfax.config
 %attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/mgetty+sendfax/faxrunq.config
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/mgetty+sendfax/faxheader
@@ -434,7 +439,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files viewfax
 %defattr(644,root,root,755)
-%doc frontends/X11/viewfax-%{viewfax_version}/C* frontends/X11/viewfax-%{viewfax_version}/README
+%doc frontends/X11/viewfax/C* frontends/X11/viewfax/README
 %attr(755,root,root) %{_bindir}/viewfax
 %dir %{_libdir}/mgetty+sendfax
 %{_libdir}/mgetty+sendfax/viewfax.tif
