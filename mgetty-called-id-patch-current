@@ -16,10 +16,10 @@ diff -urP tt/mgetty-current-plus-ring-patch/Makefile TT2/Makefile
  
 -sign:	tar
 -	pgp -sab mgetty$(MR).$(SR).tar.gz
--
+-	chmod +r mgetty$(MR).$(SR).tar.gz.asc
+ 
  mgetty$(DIFFR)-$(MR).$(SR).diff.gz: \
  	mgetty$(DIFFR).tar.gz mgetty$(MR).$(SR).tar.gz
- 	-rm -rf /tmp/mgd
 @@ -477,7 +474,7 @@
  # this is for automatic uploading to the beta site. 
  # DO NOT USE IT if you're not ME! Please!

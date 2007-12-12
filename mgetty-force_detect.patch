@@ -376,8 +376,8 @@ diff -Naur mgetty-1.1.30/voice/include/version.h mgetty-1.1.31/voice/include/ver
 --- mgetty-1.1.30/voice/include/version.h	2001-12-22 17:52:29.000000000 -0500
 +++ mgetty-1.1.31/voice/include/version.h	2002-12-26 23:41:43.000000000 -0500
 @@ -1 +1 @@
--char *vgetty_version = "experimental test release 0.9.32 / 24Dec01";
-+char *vgetty_version = "experimental test release 0.9.33 / 26Dec02";
+-char *vgetty_version = "experimental test release 0.9.32 / with duplex patch";
++char *vgetty_version = "experimental test release 0.9.33 / with duplex patch";
 diff -Naur mgetty-1.1.30/voice/libvoice/detect.c mgetty-1.1.31/voice/libvoice/detect.c
 --- mgetty-1.1.30/voice/libvoice/detect.c	2002-12-12 01:44:38.000000000 -0500
 +++ mgetty-1.1.31/voice/libvoice/detect.c	2002-12-26 23:43:17.000000000 -0500
@@ -444,11 +444,12 @@ diff -Naur mgetty-1.1.30/voice/libvoice/detect.c mgetty-1.1.31/voice/libvoice/de
       if (voice_modem != &no_modem)
            {
            lprintf(L_NOISE, "voice modem type was set directly");
-@@ -233,192 +269,218 @@
+@@ -233,193 +269,218 @@
            {
-              lprintf(L_NOISE, "V253 forced");
-              voice_modem = &V253modem;
+              lprintf(L_NOISE, "V253ugly forced");
+              voice_modem = &V253ugly;
 -          }
+-
 -
 -          /* Some modems have no meaningful output except in ATI9, but
 -           * they do not respect the standard. For them we will use

@@ -1,5 +1,5 @@
---- mgetty-1.1.25/frontends/X11/viewfax-2.5/Imakefile.old	Sat Aug 26 13:08:22 2000
-+++ mgetty-1.1.25/frontends/X11/viewfax-2.5/Imakefile	Sun Apr  8 14:04:16 2001
+--- mgetty-1.1.25/frontends/X11/viewfax/Imakefile.old	Sat Aug 26 13:08:22 2000
++++ mgetty-1.1.25/frontends/X11/viewfax/Imakefile	Sun Apr  8 14:04:16 2001
 @@ -8,8 +8,10 @@
  MANDIR = /usr/local/man/man1	/* where you want the man file installed */
  HELPDIR = /usr/local/lib	/* where you want the help file installed */
