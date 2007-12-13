@@ -1,3 +1,7 @@
+# TODO:
+#	- test if it is really usable with system libgsm
+#	- fix Makefile to remove BR: xorg-lib-libXext-devel
+#	- check BR: groff
 
 %define		ver_date	Jun15
 Summary:	A getty replacement for use with data and fax modems
@@ -9,7 +13,7 @@ Summary(pt_BR.UTF-8):	Um substituto melhor do que o getty para modems de dados e
 Summary(tr.UTF-8):	Veri ve faks modemleri için yeni ve akıllı bir getty
 Name:		mgetty
 Version:	1.1.36
-Release:	0.2
+Release:	0.3
 License:	distributable
 Group:		Applications/Communications
 Source0:	ftp://alpha.greenie.net/pub/mgetty/source/1.1/%{name}%{version}-%{ver_date}.tar.gz
@@ -25,11 +29,13 @@ Patch4:		%{name}-install.patch
 Patch5:		%{name}-manpages.patch
 Patch6:		%{name}-issue-doc.patch
 Patch7:		%{name}-makedoc.patch
+Patch8:		%{name}-system_libgsm.patch
 Patch9:		%{name}-called-id-patch-current
 Patch10:	%{name}-voiceconfig.patch
 Patch11:	%{name}-issue.patch
 Patch12:	%{name}-force_detect.patch
 URL:		http://alpha.greenie.net/mgetty/
+BuildRequires:	libgsm-devel
 BuildRequires:	tetex
 BuildRequires:	texinfo
 BuildRequires:	xorg-cf-files
@@ -236,10 +242,13 @@ cp -f policy.h-dist policy.h
 %patch5 -p1
 %patch6 -p1
 %patch7 -p0
+%patch8 -p1
 %patch9 -p1
 %patch10 -p1
 %patch11 -p1
 %patch12 -p1
+
+rm -rf voice/libmgsm
 
 %build
 %{__make} \
@@ -302,6 +311,9 @@ mv $RPM_BUILD_ROOT%{_sysconfdir}/mgetty+sendfax/faxspool.rules.sample \
 # make the html documenatation
 texi2html -monolithic doc/mgetty.texi
 
+# g3topbm is provided by netpbm-progs (required by mgetty-sendfax)
+rm -f $RPM_BUILD_ROOT%{_bindir}/g3topbm
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -337,7 +349,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/newslock
 %attr(755,root,root) %{_bindir}/g3cat
 %attr(755,root,root) %{_bindir}/g32pbm
-%attr(755,root,root) %{_bindir}/g3topbm
 %attr(755,root,root) %{_bindir}/pbm2g3
 %attr(755,root,root) %{_bindir}/sff2g3
 %attr(755,root,root) %{_bindir}/faxspool
