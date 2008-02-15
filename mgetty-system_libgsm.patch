@@ -1,0 +1,38 @@
+--- mgetty-1.1.36/voice/libpvf/usr.c.orig	2007-12-12 22:20:26.785642057 +0100
++++ mgetty-1.1.36/voice/libpvf/usr.c	2007-12-12 22:20:40.283582863 +0100
+@@ -43,7 +43,7 @@
+ /*****************
+  ** GSM SECTION **
+  *****************/
+-#include "../libmgsm/gsm.h"
++#include <gsm.h>
+ 
+ /* USR's GSM data format consists of 38-byte frames of data where the
+  * first two bytes of the frame (usually "0xFE 0xFE" for valid data and
+--- mgetty-1.1.36/voice/libpvf/depend.orig	2007-12-12 22:23:53.254143995 +0100
++++ mgetty-1.1.36/voice/libpvf/depend	2007-12-12 22:24:10.251550933 +0100
+@@ -47,7 +47,7 @@
+  ../include/../../fax_lib.h ../include/IS_101.h ../include/bitsizes.h \
+  ../include/util.h ../include/config.h ../include/default.h \
+  ../include/event.h ../include/hardware.h ../include/header.h \
+- ../include/paths.h ../include/pvf.h ../include/wav.h ../libmgsm/gsm.h
++ ../include/paths.h ../include/pvf.h ../include/wav.h
+ voc.o: voc.c ../include/voice.h ../include/../../mgetty.h \
+  ../include/../../ugly.h ../include/../../config.h \
+  ../include/../../policy.h ../include/../../tio.h \
+--- mgetty-1.1.36/voice/Makefile.orig	2007-12-12 23:44:33.515731741 +0100
++++ mgetty-1.1.36/voice/Makefile	2007-12-12 23:44:54.512528549 +0100
+@@ -18,11 +18,11 @@
+ 	../../locks.o ../../tio.o ../../modem.o \
+ 	../../class1.o ../../class1lib.o ../../hyla_nsf.o 
+ 
+-LIBDIRS=libpvf libutil libvoice libmgsm
++LIBDIRS=libpvf libutil libvoice
+ LIBPVF=../libpvf/libpvf.a
+ LIBUTIL=../libutil/libutil.a
+ LIBVOICE=../libvoice/libvoice.a
+-LIBGSM=../libmgsm/libmgsm.a
++LIBGSM=-lgsm
+ 
+ PROGRAMDIRS=pvftools vgetty vm
+ 
