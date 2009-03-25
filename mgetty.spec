@@ -38,6 +38,7 @@ URL:		http://alpha.greenie.net/mgetty/
 BuildRequires:	libgsm-devel
 BuildRequires:	tetex
 BuildRequires:	texinfo
+BuildRequires:	texi2html
 BuildRequires:	xorg-cf-files
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
