@@ -36,7 +36,7 @@ Patch11:	%{name}-issue.patch
 Patch12:	%{name}-force_detect.patch
 URL:		http://alpha.greenie.net/mgetty/
 BuildRequires:	libgsm-devel
-BuildRequires:	tetex
+BuildRequires:	texlive
 BuildRequires:	texinfo
 BuildRequires:	texi2html
 BuildRequires:	xorg-cf-files
